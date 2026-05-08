@@ -1,6 +1,3 @@
-import React from "react";
-import { motion } from "framer-motion";
-// npm i react-icons
 import {
   SiMongodb,
   SiExpress,
@@ -8,7 +5,6 @@ import {
   SiNodedotjs,
   SiRedux,
   SiTailwindcss,
-  // Replace SiAmazonaws with specific AWS services that exist in react-icons:
   SiAmazonec2,
   SiAmazons3,
   SiDocker,
@@ -21,33 +17,12 @@ import {
   SiTypescript,
 } from "react-icons/si";
 
-// Then use:
-// <SiAmazonec2 /> and <SiAmazons3 /> instead of <SiAmazonaws />
-
-const container = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.45,
-      ease: "easeOut",
-      when: "beforeChildren",
-      staggerChildren: 0.08,
-    },
-  },
-};
-
-const card = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45 } },
-};
-
 const Bar = ({ value }) => (
   <div className="h-2 w-full rounded-full bg-white/10 overflow-hidden">
     <div
-      className="h-full rounded-full bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-500"
-      style={{ width: `${value}%` }}
+      className="h-full rounded-full bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-500 skill-progress-bar"
+      data-value={value}
+      style={{ width: "0%" }}
     />
   </div>
 );
@@ -92,19 +67,72 @@ const SectionHeader = ({ title, badgeText, badgeTone = "emerald" }) => {
   );
 };
 
+import React, { useRef } from "react";
+import { motion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const ANIM_DURATION = 0.6;
+const STAGGER_AMOUNT = 0.1;
+
 const SkillsAndTools = () => {
+  const sectionRef = useRef(null);
+
+  useGSAP(
+    () => {
+      // Header & Legend entrance
+      gsap.from(".skill-reveal", {
+        y: 30,
+        opacity: 0,
+        duration: ANIM_DURATION,
+        stagger: STAGGER_AMOUNT,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+        },
+      });
+
+      // Cards entrance
+      gsap.from(".skill-card", {
+        y: 40,
+        opacity: 0,
+        duration: ANIM_DURATION,
+        stagger: STAGGER_AMOUNT,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".skill-card",
+          start: "top 90%",
+        },
+      });
+
+      // Progress bars
+      gsap.to(".skill-progress-bar", {
+        width: (i, target) => target.dataset.value + "%",
+        duration: 1.5,
+        ease: "power2.out",
+        stagger: 0.05,
+        scrollTrigger: {
+          trigger: ".skill-progress-bar",
+          start: "top 95%",
+        },
+      });
+    },
+    { scope: sectionRef }
+  );
+
   return (
-    <motion.section
-      variants={container}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
+    <section
+      ref={sectionRef}
       className="relative w-full text-white"
       id="skills"
     >
       <div className="mx-auto max-w-[1200px] px-6 py-14">
         {/* Header */}
-        <motion.div variants={card} className="mb-8">
+        <div className="mb-8 skill-reveal">
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">
             Skills & Tools
           </h2>
@@ -112,14 +140,13 @@ const SkillsAndTools = () => {
             MERN‑first delivery with dependable deployments across AWS,
             Hostinger, Render, and Vercel.
           </p>
-        </motion.div>
+        </div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {/* MERN Core */}
-          <motion.div
-            variants={card}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-lg"
+          <div
+            className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-lg skill-card"
           >
             <SectionHeader
               title="MERN Core"
@@ -175,12 +202,11 @@ const SkillsAndTools = () => {
                 <Bar value={86} />
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Platforms & Hosting */}
-          <motion.div
-            variants={card}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-lg"
+          <div
+            className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-lg skill-card"
           >
             <SectionHeader
               title="Platforms & Hosting"
@@ -237,12 +263,11 @@ const SkillsAndTools = () => {
                 <Bar value={80} />
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* APIs & Integrations */}
-          <motion.div
-            variants={card}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-lg"
+          <div
+            className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-lg skill-card"
           >
             <SectionHeader
               title="APIs & Integrations"
@@ -289,12 +314,11 @@ const SkillsAndTools = () => {
                 <Bar value={82} />
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Tooling & UX */}
-          <motion.div
-            variants={card}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-lg"
+          <div
+            className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-lg skill-card"
           >
             <SectionHeader
               title="Tooling & UX"
@@ -341,11 +365,11 @@ const SkillsAndTools = () => {
                 <Bar value={83} />
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Confidence legend */}
-        <div className="mt-8 flex items-center gap-3 text-[12px] text-slate-400">
+        <div className="mt-8 flex items-center gap-3 text-[12px] text-slate-400 skill-reveal">
           <span className="inline-block h-2 w-2 rounded-full bg-emerald-400" />
           <span>High</span>
           <span className="inline-block h-2 w-2 rounded-full bg-indigo-400 ml-4" />
@@ -354,7 +378,7 @@ const SkillsAndTools = () => {
           <span>Working</span>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

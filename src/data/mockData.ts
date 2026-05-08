@@ -24,49 +24,78 @@ export const skills = {
   ]
 };
 
+export const experiences = [
+  {
+    id: 1,
+    title: "Senior App & Full-Stack Developer",
+    company: "Loanyfy.com",
+    duration: "June 2024 - Present",
+    responsibilities: [
+      "Leading the architectural shift towards mobile-first fintech solutions using React Native",
+      "Developing high-security financial modules and scalable MERN stack backends",
+      "Optimizing platform performance and implementing premium interactive UI/UX",
+      "Driving production-ready deployments and ensuring technical excellence across the stack"
+    ]
+  },
+  {
+    id: 2,
+    title: "Freelance App & Web Specialist",
+    company: "Self-Employed",
+    duration: "2023 - Present",
+    responsibilities: [
+      "Building high-impact digital products like PLP Bazar, Madiha Perfume, and Chand Kabadi Wala",
+      "Providing end-to-end technical solutions for e-commerce and community-based platforms",
+      "Expertise in cross-platform mobile development and SEO-optimized web architectures",
+      "Helping global clients scale their digital presence with robust and modern technologies"
+    ]
+  }
+];
+
 export const projects = [
   {
     id: 1,
-    title: "E-Commerce Platform",
-    description: "Full-stack e-commerce application with shopping cart, payment integration, and admin dashboard.",
-    image: "https://images.unsplash.com/photo-1577333715735-8fcb0359d906?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlY29tbWVyY2UlMjB3ZWJzaXRlJTIwbW9ja3VwfGVufDF8fHx8MTc2MjA2NzA0Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-    techStack: ["React", "Node.js", "MongoDB", "Express"],
+    title: "Chand Kabadi Wala",
+    description: "A premium mobile application for scrap management and recycling. Features smooth spring animations, themed iconography, and a streamlined onboarding flow built with React Native.",
+    image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1000",
+    techStack: ["React Native", "Expo", "Moti", "Lucide"],
     liveUrl: "#",
     githubUrl: "#"
   },
   {
     id: 2,
-    title: "Task Management System",
-    description: "Collaborative task manager with real-time updates, user authentication, and team collaboration features.",
-    image: "https://images.unsplash.com/photo-1651129522359-ce483a8263a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0YXNrJTIwbWFuYWdlbWVudCUyMGFwcHxlbnwxfHx8fDE3NjE5OTAxMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    techStack: ["React", "Express", "MongoDB", "Socket.io"],
+    title: "Madiha Perfume",
+    description: "A high-end fragrance e-commerce platform. Fully optimized for production with Next.js, featuring advanced filtering, secure checkout, and a professional aesthetic.",
+    image: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1000",
+    techStack: ["Next.js", "React", "Tailwind", "Node.js"],
     liveUrl: "#",
     githubUrl: "#"
   },
   {
     id: 3,
-    title: "Analytics Dashboard",
-    description: "Modern analytics dashboard with interactive charts, data visualization, and export functionality.",
-    image: "https://images.unsplash.com/photo-1665470909939-959569b20021?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWIlMjBhcHBsaWNhdGlvbiUyMGRhc2hib2FyZHxlbnwxfHx8fDE3NjIwMDc0MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    techStack: ["React", "Node.js", "MongoDB", "Chart.js"],
+    title: "PLP Bazar",
+    description: "A comprehensive multi-category e-commerce marketplace. Built on the MERN stack with a focus on scalable architecture, user-friendly navigation, and robust backend services.",
+    image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=1000",
+    techStack: ["React", "Node.js", "Express", "MongoDB"],
     liveUrl: "#",
     githubUrl: "#"
-  }
-];
-
-export const experiences = [
-
+  },
   {
-    id: 1,
-    title: "Full Stack Developer",
-    company: "Loanyfy.com",
-    duration: "June 2024 - Now ",
-    responsibilities: [
-      "Developed and maintained responsive web applications using the MERN stack",
-      "Collaborated with cross-functional teams to design and deliver new features",
-      "Implemented user authentication, API integrations, and data management modules",
-      "Contributed to enhancing UI/UX for improved user engagement"
-    ]
+    id: 4,
+    title: "KroEasy",
+    description: "A service-based platform featuring atomic batch booking, worker payment integration via dynamic QR codes, and real-time order tracking.",
+    image: "https://images.unsplash.com/photo-1521791136064-7986c2923216?q=80&w=1000",
+    techStack: ["React Native", "Node.js", "Razorpay", "MongoDB"],
+    liveUrl: "#",
+    githubUrl: "#"
+  },
+  {
+    id: 5,
+    title: "Masjid App",
+    description: "A community-focused application featuring a Quran reading interface with PDF zoom controls, prayer timings, and mosque management tools.",
+    image: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=1000",
+    techStack: ["React Native", "Expo", "PDF-Lib", "Firebase"],
+    liveUrl: "#",
+    githubUrl: "#"
   }
 ];
 

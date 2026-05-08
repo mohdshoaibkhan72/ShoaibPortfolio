@@ -1,33 +1,12 @@
-import React from "react";
+import React, { useRef } from "react";
 import { motion } from "framer-motion";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import FixedBackgroundAnimation from "./FixedBackgroundAnimation";
 
-const container = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-      when: "beforeChildren",
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
-
-const float = (delay = 0) => ({
-  initial: { y: 0 },
-  animate: {
-    y: [0, -6, 0],
-    transition: { duration: 4, delay, repeat: Infinity, ease: "easeInOut" },
-  },
-});
+/* GSAP helps for smooth entrance */
+const ANIM_DURATION = 0.8;
+const STAGGER_AMOUNT = 0.12;
 
 const skillsColors = [
   "from-pink-500 to-rose-500",
@@ -63,48 +42,113 @@ const coder = {
 };
 
 const LandingPage = () => {
+  const heroRef = useRef(null);
+  const terminalRef = useRef(null);
+
+  useGSAP(
+    () => {
+      // Entrance animations
+      const tl = gsap.timeline();
+      tl.from(".hero-reveal", {
+        y: 40,
+        opacity: 0,
+        duration: ANIM_DURATION,
+        stagger: STAGGER_AMOUNT,
+        ease: "power3.out",
+      }).from(".hero-name-part", {
+        y: 30,
+        opacity: 0,
+        scale: 0.95,
+        duration: 1,
+        ease: "back.out(1.7)",
+      }, "-=0.6").from(".hero-title-part", {
+        x: -30,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power2.out",
+      }, "-=0.8").from(
+        ".hero-terminal",
+        {
+          x: 40,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        },
+        "-=0.6"
+      );
+
+      // Interactive mouse move for terminal
+      const handleMouseMove = (e) => {
+        if (!terminalRef.current) return;
+        const { clientX, clientY } = e;
+        const rect = terminalRef.current.getBoundingClientRect();
+        const x = (clientX - rect.left - rect.width / 2) / 30;
+        const y = (clientY - rect.top - rect.height / 2) / 30;
+
+        gsap.to(terminalRef.current, {
+          rotationY: x,
+          rotationX: -y,
+          transformPerspective: 1000,
+          duration: 0.6,
+          ease: "power2.out",
+        });
+      };
+
+      // Floating animation for skill chips
+      gsap.to(".gsap-float-hero", {
+        y: -10,
+        duration: 1.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut",
+        stagger: {
+          amount: 1,
+          from: "random",
+        },
+      });
+
+      window.addEventListener("mousemove", handleMouseMove);
+      return () => window.removeEventListener("mousemove", handleMouseMove);
+    },
+    { scope: heroRef }
+  );
+
   return (
     <>
       <FixedBackgroundAnimation />
 
-      <motion.section
-        variants={container}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.35 }}
-        className="relative w-full min-h-screen text-white"
+      <section
+        ref={heroRef}
+        className="relative w-full min-h-screen text-white overflow-hidden"
         id="home"
       >
         <div className="relative z-10 mx-auto max-w-[1200px] px-6 py-20 md:py-28">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 items-center">
             {/* LEFT: content */}
-            <div className="text-left">
-              <motion.div variants={fadeUp} className="mb-5">
+            <div className="text-left hero-content">
+              <div className="hero-reveal mb-5">
                 <span className="inline-flex items-center gap-2 px-4 py-1 text-sm font-medium text-indigo-700 rounded-full border border-indigo-300/60 bg-indigo-50 dark:text-indigo-300 dark:border-indigo-500/30 dark:bg-indigo-900/20">
                   <span className="w-2 h-2 bg-indigo-500 rounded-full" />
                   Empowering Digital Growth
                 </span>
-              </motion.div>
+              </div>
 
-              <motion.h1
-                variants={fadeUp}
-                className="mb-4 text-[34px] leading-tight sm:text-[46px] md:text-[56px] md:leading-[1.1] font-semibold tracking-tight"
-              >
-                I’m Shoaib Khan 👋
+              <h1 className="hero-reveal mb-4 text-[34px] leading-tight sm:text-[46px] md:text-[56px] md:leading-[1.1] font-semibold tracking-tight">
+                <span className="hero-name-part inline-block mb-1">I’m Shoaib Khan 👋</span>
                 <br className="hidden sm:block" />
-                Freelance App & <br className="sm:hidden" /> Full‑Stack Developer
-              </motion.h1>
+                <span className="hero-title-part inline-block bg-gradient-to-r from-indigo-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+                  Freelance App & Full‑Stack Developer
+                </span>
+              </h1>
 
-              <motion.p
-                variants={fadeUp}
-                className="mb-8 max-w-xl text-[16px] sm:text-[17px] leading-relaxed text-slate-200/90"
-              >
-                Crafting high‑performance mobile & web experiences with React, Node.js, and modern architectures. I help businesses scale through robust UIs, secure backends, and premium digital solutions.
-              </motion.p>
+              <p className="hero-reveal mb-8 max-w-xl text-[16px] sm:text-[17px] leading-relaxed text-slate-200/90">
+                Specializing in building premium mobile apps and scalable full‑stack
+                solutions. From conceptual UI to production‑ready code, I bring
+                your ideas to life.
+              </p>
 
-              <motion.div
-                variants={fadeUp}
-                className="mb-8 flex flex-wrap items-center gap-4"
+              <div
+                className="hero-reveal mb-8 flex flex-wrap items-center gap-4"
               >
                 <a href="#contact" aria-label="Book a call">
                   <button className="rounded-md bg-indigo-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 focus:outline-none focus-visible:ring ring-indigo-500">
@@ -124,7 +168,7 @@ const LandingPage = () => {
                 >
                   Download résumé
                 </a>
-              </motion.div>
+              </div>
 
               <div
                 className="group relative inline-flex items-center gap-3 rounded-xl border border-slate-300/70 bg-white/5 p-2 
@@ -206,15 +250,13 @@ const LandingPage = () => {
             </div>
 
             {/* RIGHT: colorful developer code card */}
-            <div className="relative h-[380px] sm:h-[440px] md:h-[500px] lg:h-[540px]">
+            <div className="relative h-[380px] sm:h-[440px] md:h-[500px] lg:h-[540px] hero-terminal" ref={terminalRef}>
               {/* glow backdrop */}
               <div className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-indigo-500/30 via-fuchsia-500/20 to-cyan-500/30 blur-2xl" />
 
               {/* main card */}
-              <motion.div
-                variants={fadeUp}
+              <div
                 className="relative h-max rounded-2xl border border-white/15 bg-[#0B1020]/80 backdrop-blur-md shadow-2xl overflow-hidden"
-                {...float(0.2)}
               >
                 {/* Header bar */}
                 <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
@@ -256,9 +298,8 @@ const LandingPage = () => {
                     {coder.skills.map((s, i) => (
                       <span
                         key={s}
-                        className={`inline-flex items-center rounded-md bg-gradient-to-r ${
-                          skillsColors[i % skillsColors.length]
-                        } px-2.5 py-1 text-[11px] font-semibold text-white shadow-sm`}
+                        className={`inline-flex items-center rounded-md bg-gradient-to-r ${skillsColors[i % skillsColors.length]
+                          } px-2.5 py-1 text-[11px] font-semibold text-white shadow-sm gsap-float-hero`}
                       >
                         {s}
                       </span>
@@ -329,34 +370,31 @@ const LandingPage = () => {
                   {/* hireable status pill */}
                   <div className="mt-4">
                     <span
-                      className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold ${
-                        coder.hireable()
+                      className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold ${coder.hireable()
                           ? "bg-emerald-500/20 text-emerald-300"
                           : "bg-rose-500/20 text-rose-300"
-                      }`}
+                        }`}
                     >
                       <span
-                        className={`h-2 w-2 rounded-full ${
-                          coder.hireable() ? "bg-emerald-400" : "bg-rose-400"
-                        }`}
+                        className={`h-2 w-2 rounded-full ${coder.hireable() ? "bg-emerald-400" : "bg-rose-400"
+                          }`}
                       />
                       {coder.hireable() ? "Hireable: true" : "Hireable: false"}
                     </span>
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
               {/* extra floating badge for depth */}
-              <motion.div
-                className="absolute -right-2 -top-6 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 px-3 py-2 text-[11px] font-semibold text-white shadow-xl"
-                {...float(0.6)}
+              <div
+                className="absolute -right-2 -top-6 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 px-3 py-2 text-[11px] font-semibold text-white shadow-xl gsap-float-hero"
               >
                 Developer Mode
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
-      </motion.section>
+      </section>
     </>
   );
 };

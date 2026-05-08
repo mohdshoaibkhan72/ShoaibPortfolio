@@ -1,9 +1,30 @@
+import React, { useRef } from "react";
 import { FaGithub, FaLinkedin, FaTwitter, FaHeart } from "react-icons/fa";
 import { HiMail } from "react-icons/hi";
 import { motion } from "framer-motion";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 export function Footer() {
+  const footerRef = useRef(null);
   const currentYear = new Date().getFullYear();
+
+  useGSAP(
+    () => {
+      gsap.from(".footer-reveal", {
+        y: 20,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top 95%",
+        },
+      });
+    },
+    { scope: footerRef }
+  );
 
   const socialLinks = [
     {
@@ -51,7 +72,10 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative bg-gradient-to-b from-slate-900 to-slate-950 text-white py-16 overflow-hidden border-t border-white/5">
+    <footer
+      ref={footerRef}
+      className="relative bg-gradient-to-b from-slate-900 to-slate-950 text-white py-16 overflow-hidden border-t border-white/5"
+    >
       {/* Decorative gradient orbs */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px]" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]" />
@@ -59,12 +83,7 @@ export function Footer() {
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Brand Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <div className="footer-reveal">
             <div className="flex items-center gap-2 mb-4">
               <div className="h-10 w-10 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/50">
                 <span className="text-white font-semibold">MK</span>
@@ -74,34 +93,23 @@ export function Footer() {
               </span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed mb-4">
-              Full-stack MERN developer passionate about building exceptional
-              web experiences and turning ideas into reality.
+              Full-stack Senior App developer passionate about building
+              exceptional web experiences and turning ideas into reality.
             </p>
             <div className="flex items-center gap-2 text-slate-500 text-xs">
               <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
               <span>Available for freelance work</span>
             </div>
-          </motion.div>
+          </div>
 
           {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <div className="footer-reveal">
             <h4 className="text-white font-semibold text-lg mb-4">
               Quick Links
             </h4>
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
-                <motion.li
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                >
+                <li key={index}>
                   <button
                     onClick={() => scrollToSection(link.link)}
                     className="text-slate-400 hover:text-indigo-400 transition-colors inline-flex items-center gap-2 group text-sm"
@@ -109,18 +117,13 @@ export function Footer() {
                     <span className="w-0 h-px bg-indigo-400 group-hover:w-4 transition-all duration-300"></span>
                     {link.label}
                   </button>
-                </motion.li>
+                </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+          <div className="footer-reveal">
             <h4 className="text-white font-semibold text-lg mb-4">
               Connect With Me
             </h4>
@@ -134,10 +137,6 @@ export function Footer() {
                   href={social.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, type: "spring" }}
                   whileHover={{ scale: 1.1, y: -5 }}
                   whileTap={{ scale: 0.95 }}
                   className={`p-3 bg-white/5 backdrop-blur-lg rounded-lg border border-white/10 ${social.color} hover:border-transparent transition-all shadow-lg group`}
@@ -147,29 +146,16 @@ export function Footer() {
                 </motion.a>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Divider */}
-        <div className="relative mb-8">
+        <div className="relative mb-8 footer-reveal">
           <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 origin-left"
-          />
         </div>
 
         {/* Copyright */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="text-center space-y-2"
-        >
+        <div className="text-center space-y-2 footer-reveal">
           <p className="text-slate-400 text-sm">
             © {currentYear} Mohammad Shoaib Khan. All Rights Reserved.
           </p>
@@ -181,12 +167,12 @@ export function Footer() {
             >
               <FaHeart className="w-4 h-4 text-red-400 inline" />
             </motion.span>
-            <span>using React, Tailwind CSS & Framer Motion</span>
+            <span>using React, Tailwind CSS & GSAP</span>
           </p>
           <p className="text-slate-600 text-xs mt-2">
             Designed & Developed by Mohammad Shoaib Khan
           </p>
-        </motion.div>
+        </div>
 
         {/* Back to Top Button */}
         <motion.button
