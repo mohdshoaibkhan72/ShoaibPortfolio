@@ -55,23 +55,12 @@ export const projects = [
 ];
 
 export const experiences = [
+
   {
     id: 1,
     title: "Full Stack Developer",
-    company: "Anarish Innovations",
-    duration: "Nov 2025 - Present",
-    responsibilities: [
-      "Leading full-stack web application development using modern technologies",
-      "Managing and maintaining server infrastructure and API integrations",
-      "Implementing security protocols, data backup systems, and performance optimization",
-      "Collaborating with the design and product teams to deliver scalable solutions"
-    ]
-  },
-  {
-    id: 2,
-    title: "Full Stack Developer",
     company: "Loanyfy.com",
-    duration: "June 2024 - Nov 2025",
+    duration: "June 2024 - Now ",
     responsibilities: [
       "Developed and maintained responsive web applications using the MERN stack",
       "Collaborated with cross-functional teams to design and deliver new features",

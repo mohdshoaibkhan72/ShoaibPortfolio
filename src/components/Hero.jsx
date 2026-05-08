@@ -46,10 +46,10 @@ const coder = {
   skills: [
     "React",
     "NextJS",
-    "Redux",
+    "React Native",
+    "App Dev",
     "Express",
     "Node.js",
-    "MySql",
     "MongoDB",
     "Docker",
     "AWS",
@@ -92,16 +92,14 @@ const LandingPage = () => {
               >
                 I’m Shoaib Khan 👋
                 <br className="hidden sm:block" />
-                Full‑Stack Developer
+                Freelance App & <br className="sm:hidden" /> Full‑Stack Developer
               </motion.h1>
 
               <motion.p
                 variants={fadeUp}
                 className="mb-8 max-w-xl text-[16px] sm:text-[17px] leading-relaxed text-slate-200/90"
               >
-                Building high‑performing products with React, Node.js, and clean
-                API architectures—scalable UIs, secure backends, and data models
-                that grow with your business.
+                Crafting high‑performance mobile & web experiences with React, Node.js, and modern architectures. I help businesses scale through robust UIs, secure backends, and premium digital solutions.
               </motion.p>
 
               <motion.div

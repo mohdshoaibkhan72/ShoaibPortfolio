@@ -4,9 +4,9 @@ import { FiDownload, FiCheckCircle } from "react-icons/fi";
 export function About() {
   const highlights = [
     "3+ years of development experience",
-    "Full-stack MERN expertise",
+    "App & Full-Stack Development",
     "Clean code & best practices",
-    "UI/UX focused development",
+    "Freelance & Contract Expert",
   ];
 
   return (
@@ -57,7 +57,7 @@ export function About() {
             <div className="relative rounded-3xl overflow-hidden border border-white/20 backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 shadow-2xl">
               <img
                 src="/aiimg1.png"
-                alt="Mohammad Shoaib Khan - Full Stack Developer"
+                alt="Mohammad Shoaib Khan - App Developer"
                 className="w-full h-auto rounded-3xl transform transition-transform duration-700 group-hover:scale-105"
               />
 
@@ -79,10 +79,10 @@ export function About() {
               <div className="flex items-center justify-between text-white">
                 <div>
                   <p className="text-sm font-medium opacity-90">
-                    Full Stack Developer
+                    App & Web Developer
                   </p>
                   <p className="text-xs opacity-70 mt-0.5">
-                    MERN Stack Specialist
+                    Freelance Specialist
                   </p>
                 </div>
                 <div className="h-10 w-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
