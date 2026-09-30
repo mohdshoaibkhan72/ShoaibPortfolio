@@ -68,8 +68,8 @@ export function Contact() {
     {
       icon: HiMail,
       label: "Email",
-      value: "contact@mohammadshoaibkhan.com",
-      link: "mailto:contact@mohammadshoaibkhan.com",
+      value: "info@mohammadshoaibkhan.com",
+      link: "mailto:info@mohammadshoaibkhan.com",
     },
     {
       icon: HiPhone,

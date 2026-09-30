@@ -3,10 +3,10 @@ import { FiDownload, FiCheckCircle } from "react-icons/fi";
 
 export function About() {
   const highlights = [
-    "3+ years of development experience",
-    "App & Full-Stack Development",
-    "Clean code & best practices",
-    "Freelance & Contract Expert",
+    "3+ Years Professional Experience",
+    "Full-Time at Loanyfy · Fintech",
+    "16+ Production Apps Delivered",
+    "React Native & MERN Expert",
   ];
 
   return (
@@ -121,19 +121,22 @@ export function About() {
             className="text-white"
           >
             <h3 className="mb-6 text-white text-3xl font-semibold">
-              Passionate Developer, Creative Problem Solver
+              Full-Stack & Mobile App Developer
             </h3>
             <p className="mb-6 text-slate-300 text-base leading-relaxed">
-              I'm a passionate MERN Stack Developer with experience building
-              responsive web applications using MongoDB, Express, React, and
-              Node.js. I focus on clean code, UI/UX, and seamless backend
-              integration.
+              I'm a Full-Stack & Mobile App Developer with 3+ years of hands-on
+              experience building production-grade digital products. Currently
+              working full-time at{" "}
+              <span className="text-indigo-400 font-medium">Loanyfy</span> — a
+              fintech platform — where I lead mobile-first product development
+              using React Native and architect scalable MERN stack backends.
             </p>
             <p className="mb-8 text-slate-300 text-base leading-relaxed">
-              My journey in web development has equipped me with the skills to
-              transform ideas into functional, scalable applications. I believe
-              in continuous learning and staying updated with the latest
-              technologies.
+              Alongside my full-time role, I've delivered 16+ freelance projects
+              — from multi-vendor marketplaces and luxury e-commerce to
+              community apps and B2B platforms. I bring clean code, premium
+              UI/UX, and reliable deployment expertise to every project I take
+              on.
             </p>
 
             {/* Highlights */}

@@ -28,27 +28,18 @@ export const experiences = [
   {
     id: 1,
     title: "Senior App & Full-Stack Developer",
-    company: "Loanyfy.com",
-    duration: "June 2024 - Present",
+    company: "Loanyfy",
+    type: "Full-Time",
+    duration: "June 2024 – Present",
+    durationLabel: "2 yrs · Ongoing",
     responsibilities: [
-      "Leading the architectural shift towards mobile-first fintech solutions using React Native",
-      "Developing high-security financial modules and scalable MERN stack backends",
-      "Optimizing platform performance and implementing premium interactive UI/UX",
-      "Driving production-ready deployments and ensuring technical excellence across the stack"
+      "Leading mobile-first fintech product development with React Native for Android & iOS",
+      "Architecting high-security loan management modules, REST APIs, and MERN stack backends",
+      "Integrating third-party services — SMS OTP, KYC verification, Razorpay payment gateway",
+      "Delivering premium UI/UX with smooth animations and optimizing app performance at scale",
+      "Managing production deployments on AWS EC2 & S3 and driving code quality across the team"
     ]
   },
-  {
-    id: 2,
-    title: "Freelance App & Web Specialist",
-    company: "Self-Employed",
-    duration: "2023 - Present",
-    responsibilities: [
-      "Building high-impact digital products like PLP Bazar, Madiha Perfume, and Chand Kabadi Wala",
-      "Providing end-to-end technical solutions for e-commerce and community-based platforms",
-      "Expertise in cross-platform mobile development and SEO-optimized web architectures",
-      "Helping global clients scale their digital presence with robust and modern technologies"
-    ]
-  }
 ];
 
 export const projects = [
@@ -91,9 +82,18 @@ export const projects = [
   {
     id: 5,
     title: "Masjid App",
-    description: "A community-focused application featuring a Quran reading interface with PDF zoom controls, prayer timings, and mosque management tools.",
+    description: "A community-focused mobile app featuring a Quran reading interface with PDF zoom controls, location-based prayer timings, and mosque admin tools.",
     image: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=1000",
     techStack: ["React Native", "Expo", "PDF-Lib", "Firebase"],
+    liveUrl: "#",
+    githubUrl: "#"
+  },
+  {
+    id: 6,
+    title: "Organyfy",
+    description: "A team productivity mobile app with Kanban task boards, role-based access, push notifications, and real-time collaboration — built for small business teams.",
+    image: "/Organyfy.png",
+    techStack: ["React Native", "Expo", "Firebase", "Push Notifications"],
     liveUrl: "#",
     githubUrl: "#"
   }
@@ -102,26 +102,26 @@ export const projects = [
 export const testimonials = [
   {
     id: 1,
-    name: "Sarah Johnson",
-    position: "Product Manager",
-    company: "Tech Solutions Inc.",
-    comment: "Mohammad is an exceptional developer who delivers high-quality work on time. His expertise in the MERN stack is impressive.",
-    avatar: "SJ"
+    name: "PLP Bazar Owner",
+    position: "Founder & CEO",
+    company: "PLP Bazar",
+    comment: "Shoaib built our entire multi-vendor marketplace — both the React Native app and the web platform. The performance, UI, and delivery were outstanding. Highly recommended.",
+    avatar: "PB"
   },
   {
     id: 2,
-    name: "Ahmed Ali",
-    position: "Team Lead",
-    company: "Digital Ventures",
-    comment: "Working with Mohammad was a great experience. He's professional, skilled, and always willing to go the extra mile.",
-    avatar: "AA"
+    name: "Chand Kabadi Wala",
+    position: "Founder",
+    company: "Chand Kabadi Wala",
+    comment: "The scrap pickup app Shoaib built for us completely transformed our business. Clean UI, smooth booking flow, and deployed perfectly on Play Store. Excellent work!",
+    avatar: "CK"
   },
   {
     id: 3,
-    name: "Emily Chen",
-    position: "CEO",
-    company: "StartupHub",
-    comment: "Mohammad built our entire web platform from scratch. The result exceeded our expectations in every way.",
-    avatar: "EC"
+    name: "Madiha Perfume",
+    position: "Owner",
+    company: "Madiha Perfume",
+    comment: "Our e-commerce website looks stunning and runs smoothly. Shoaib understood our brand vision perfectly and delivered a premium experience within the deadline.",
+    avatar: "MP"
   }
 ];

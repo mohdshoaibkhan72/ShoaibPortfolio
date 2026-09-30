@@ -132,8 +132,8 @@ export function Experience() {
                         <BsBuilding className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <p className="text-2xl font-bold text-white">1</p>
-                        <p className="text-slate-400 text-sm">Company</p>
+                        <p className="text-2xl font-bold text-white">Loanyfy</p>
+                        <p className="text-slate-400 text-sm">Full-Time · 2 yrs</p>
                       </div>
                     </div>
 
@@ -142,8 +142,8 @@ export function Experience() {
                         <FiTrendingUp className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <p className="text-2xl font-bold text-white">12+</p>
-                        <p className="text-slate-400 text-sm">Key Projects</p>
+                        <p className="text-2xl font-bold text-white">16+</p>
+                        <p className="text-slate-400 text-sm">Projects Delivered</p>
                       </div>
                     </div>
                   </div>
@@ -195,25 +195,35 @@ export function Experience() {
                       <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl hover:bg-white/10 hover:border-indigo-500/50 transition-all duration-300 shadow-xl overflow-hidden">
                         {/* Card Header */}
                         <div className="p-6 border-b border-white/10">
-                          <div className="flex items-start justify-between gap-4">
+                          <div className="flex items-start justify-between gap-4 flex-wrap">
                             <div className="flex items-start gap-4 flex-grow">
-                              <div className="p-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg shadow-lg shadow-indigo-500/50">
+                              <div className="p-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg shadow-lg shadow-indigo-500/50 flex-shrink-0">
                                 <BsBriefcase className="w-6 h-6 text-white" />
                               </div>
                               <div className="flex-grow">
-                                <h3 className="text-white text-xl font-semibold">
-                                  {exp.title}
-                                </h3>
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <h3 className="text-white text-xl font-semibold">
+                                    {exp.title}
+                                  </h3>
+                                  {exp.type && (
+                                    <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${exp.type === "Full-Time" ? "bg-indigo-500/25 text-indigo-300 border border-indigo-500/40" : "bg-emerald-500/25 text-emerald-300 border border-emerald-500/40"}`}>
+                                      {exp.type}
+                                    </span>
+                                  )}
+                                </div>
                                 <p className="text-indigo-400 mt-1 font-medium">
                                   {exp.company}
                                 </p>
                               </div>
                             </div>
-                            <div className="text-right">
+                            <div className="text-right shrink-0">
                               <span className="inline-flex items-center gap-1 px-3 py-1 bg-indigo-500/20 text-indigo-300 text-xs font-medium rounded-full border border-indigo-500/30">
                                 <BsCalendar3 className="w-3 h-3" />
                                 {exp.duration}
                               </span>
+                              {exp.durationLabel && (
+                                <p className="text-slate-400 text-xs mt-1 text-right">{exp.durationLabel}</p>
+                              )}
                             </div>
                           </div>
                         </div>

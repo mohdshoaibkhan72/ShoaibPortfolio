@@ -137,7 +137,7 @@ const LandingPage = () => {
                 <span className="hero-name-part inline-block mb-1">I’m Shoaib Khan 👋</span>
                 <br className="hidden sm:block" />
                 <span className="hero-title-part inline-block bg-gradient-to-r from-indigo-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
-                  Freelance App & Full‑Stack Developer
+                  App & Full‑Stack Developer
                 </span>
               </h1>
 
@@ -230,7 +230,7 @@ const LandingPage = () => {
 
                 {/* Email */}
                 <a
-                  href="mailto:contact@mohammadshoaibkhan.com"
+                  href="mailto:info@mohammadshoaibkhan.com"
                   aria-label="Email"
                   title="Email"
                   className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300/60 

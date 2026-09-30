@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# AI crawlers — welcome to index this portfolio
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://mohammadshoaibkhan.com/sitemap.xml

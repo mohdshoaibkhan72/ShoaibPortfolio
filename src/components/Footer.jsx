@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { Link } from "react-router-dom";
 import { FaGithub, FaLinkedin, FaTwitter, FaHeart } from "react-icons/fa";
 import { HiMail } from "react-icons/hi";
 import { motion } from "framer-motion";
@@ -43,33 +44,18 @@ export function Footer() {
     {
       icon: HiMail,
       label: "Email",
-      link: "mailto:contact@mohammadshoaibkhan.com",
+      link: "mailto:info@mohammadshoaibkhan.com",
       color: "hover:bg-red-500",
     },
   ];
 
   const quickLinks = [
-    { label: "Home", link: "#home" },
-    { label: "About", link: "#about" },
-    { label: "Skills", link: "#skills" },
-    { label: "Projects", link: "#projects" },
-    { label: "Experience", link: "#experience" },
-    { label: "Contact", link: "#contact" },
+    { label: "Home",       path: "/"           },
+    { label: "About",      path: "/about"      },
+    { label: "Projects",   path: "/projects"   },
+    { label: "Experience", path: "/experience" },
+    { label: "Contact",    path: "/contact"    },
   ];
-
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId.replace("#", ""));
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
-  };
 
   return (
     <footer
@@ -110,13 +96,13 @@ export function Footer() {
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <button
-                    onClick={() => scrollToSection(link.link)}
+                  <Link
+                    to={link.path}
                     className="text-slate-400 hover:text-indigo-400 transition-colors inline-flex items-center gap-2 group text-sm"
                   >
                     <span className="w-0 h-px bg-indigo-400 group-hover:w-4 transition-all duration-300"></span>
                     {link.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -179,7 +165,7 @@ export function Footer() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          onClick={() => scrollToSection("#home")}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           whileHover={{ y: -5 }}
           whileTap={{ scale: 0.95 }}
           className="absolute bottom-8 right-8 p-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg shadow-lg shadow-indigo-500/50 hover:shadow-indigo-500/70 transition-all group"
