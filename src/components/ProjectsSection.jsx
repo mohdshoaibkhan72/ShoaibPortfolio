@@ -1,3 +1,4 @@
+import Tilt3D from "./Tilt3D";
 import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -387,7 +388,7 @@ const MiniModal = ({ project, initialIndex = 0, onClose }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 force-dark"
       style={{ background: "rgba(0,0,0,0.92)", backdropFilter: "blur(20px)" }}
       onClick={onClose}
     >
@@ -488,7 +489,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.22 }}
-      className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center sm:p-6"
+      className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center sm:p-6 force-dark"
       style={{ background: "rgba(2,6,23,0.9)", backdropFilter: "blur(20px)" }}
       onClick={onClose}
     >
@@ -920,7 +921,7 @@ const Projects = ({ items = [] }) => {
       id="projects"
       ref={sectionRef}
       className="relative w-full text-white py-28 overflow-hidden"
-      style={{ background: "#020817" }}
+      style={{ background: "rgb(var(--page-deep))" }}
     >
       {/* Background orbs */}
       <div className="bg-orb-a absolute top-0 left-[-10%] w-[600px] h-[600px] rounded-full pointer-events-none"
@@ -973,7 +974,7 @@ const Projects = ({ items = [] }) => {
           {/* App cards grid — 3 per row */}
           <div className="apps-cards-grid grid grid-cols-2 md:grid-cols-3 gap-5">
             {apps.map((project) => (
-              <AppCard key={project.id} project={project} />
+              <Tilt3D key={project.id} max={6} className="force-dark rounded-2xl"><AppCard project={project} /></Tilt3D>
             ))}
           </div>
         </div>
@@ -1004,10 +1005,10 @@ const Projects = ({ items = [] }) => {
           {/* Web Apps + Corporate Sites */}
           <div className="web-cards-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {webApps.map((project) => (
-              <WebAppCard key={project.id} project={project} />
+              <Tilt3D key={project.id} max={6} className="force-dark rounded-2xl"><WebAppCard project={project} /></Tilt3D>
             ))}
             {websites.map((project) => (
-              <WebsiteCard key={project.id} project={project} />
+              <Tilt3D key={project.id} max={6} className="force-dark rounded-2xl"><WebsiteCard project={project} /></Tilt3D>
             ))}
           </div>
         </div>

@@ -3,13 +3,34 @@
 @tailwind utilities;
 
 @layer base {
+  /* Theme tokens (space-separated RGB channels so Tailwind opacity works) */
+  :root,
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --slate-50: 248 250 252; --slate-100: 241 245 249; --slate-200: 226 232 240;
+    --slate-300: 203 213 225; --slate-400: 148 163 184; --slate-500: 100 116 139;
+    --slate-600: 71 85 105; --slate-700: 51 65 85; --slate-800: 30 41 59;
+    --slate-900: 15 23 42; --slate-950: 2 6 23;
+    --c-white: 255 255 255; --c-black: 0 0 0;
+    --page-deep: 3 7 18;
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --slate-50: 2 6 23; --slate-100: 15 23 42; --slate-200: 30 41 59;
+    --slate-300: 51 65 85; --slate-400: 71 85 105; --slate-500: 100 116 139;
+    --slate-600: 148 163 184; --slate-700: 203 213 225; --slate-800: 226 232 240;
+    --slate-900: 241 245 249; --slate-950: 248 250 252;
+    --c-white: 15 23 42; --c-black: 255 255 255;
+    --page-deep: 255 255 255;
+  }
+
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
   }
 
   body {
-    @apply bg-slate-900 text-slate-200 antialiased;
+    @apply bg-slate-900 text-slate-200 antialiased transition-colors duration-500;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
@@ -36,3 +57,66 @@
   @apply bg-white/5 backdrop-blur-xl border border-white/10;
 }
 
+
+/* ---------- Theme helpers ---------- */
+.bg-page-deep { background-color: rgb(var(--page-deep)); }
+
+/* Elements that sit on saturated gradients / always-dark surfaces keep white text */
+[data-theme="light"] [class*="bg-gradient-to-"][class*="from-indigo-6"].text-white,
+[data-theme="light"] [class*="bg-gradient-to-"][class*="from-indigo-5"].text-white,
+[data-theme="light"] [class*="bg-gradient-to-"][class*="from-emerald"].text-white,
+[data-theme="light"] .text-white[class*="bg-indigo-5"]:not([class*="bg-indigo-5/"]),
+[data-theme="light"] .text-white[class*="bg-indigo-6"], [data-theme="light"] .text-white[class*="bg-indigo-7"],
+[data-theme="light"] .text-white[class*="bg-purple-6"], [data-theme="light"] .text-white[class*="bg-emerald-6"],
+[data-theme="light"] .keep-white, [data-theme="light"] .keep-white * { color: #fff; }
+
+/* Always-dark "device" cards keep dark-mode colours inside */
+[data-theme="light"] .force-dark {
+  --slate-200: 226 232 240; --slate-300: 203 213 225; --slate-400: 148 163 184;
+  --slate-500: 100 116 139; --c-white: 255 255 255; --c-black: 0 0 0;
+  color: #e2e8f0;
+}
+
+/* Light-mode polish */
+[data-theme="light"] ::selection { @apply bg-indigo-500/25 text-slate-100; }
+[data-theme="light"] .glass { @apply bg-white/60 border-black/10; }
+[data-theme="light"] ::-webkit-scrollbar-thumb { border-color: #f1f5f9; }
+
+/* ---------- 3D helpers ---------- */
+.perspective-1000 { perspective: 1000px; }
+.preserve-3d { transform-style: preserve-3d; }
+.tilt-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+  will-change: transform;
+}
+.tilt-3d > * { transform: translateZ(0); }
+.float-3d { animation: float3d 7s ease-in-out infinite; }
+@keyframes float3d {
+  0%, 100% { transform: translate3d(0, 0, 0) rotateX(0) rotateY(0); }
+  50% { transform: translate3d(0, -14px, 30px) rotateX(3deg) rotateY(-4deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-3d { animation: none; }
+  .tilt-3d { transition: none; }
+}
+
+/* Theme toggle */
+.theme-toggle { perspective: 300px; }
+.theme-toggle .coin {
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(.4, 1.6, .5, 1);
+}
+.theme-toggle[data-mode="light"] .coin { transform: rotateY(180deg); }
+.theme-toggle .face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.theme-toggle .face.back { transform: rotateY(180deg); }
+
+/* Light mode: pastel accent text needs more contrast on light surfaces */
+[data-theme="light"] .text-indigo-200, [data-theme="light"] .text-indigo-300, [data-theme="light"] .text-indigo-400 { color: #4f46e5; }
+[data-theme="light"] .text-cyan-300 { color: #0e7490; }
+[data-theme="light"] .text-sky-300, [data-theme="light"] .text-sky-400 { color: #0369a1; }
+[data-theme="light"] .text-emerald-300, [data-theme="light"] .text-emerald-400 { color: #047857; }
+[data-theme="light"] .text-violet-300, [data-theme="light"] .text-purple-400 { color: #6d28d9; }
+[data-theme="light"] .force-dark .text-cyan-300 { color: #67e8f9; }
+[data-theme="light"] .force-dark .text-emerald-300 { color: #6ee7b7; }
+[data-theme="light"] .force-dark .text-indigo-300 { color: #a5b4fc; }

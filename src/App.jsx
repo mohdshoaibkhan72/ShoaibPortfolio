@@ -8,10 +8,12 @@ import ProjectDetailPage from "./pages/ProjectDetailPage";
 import ExperiencePage from "./pages/ExperiencePage";
 import ContactPage from "./pages/ContactPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import { ThemeProvider } from "./context/ThemeContext";
 import { ScrollToTop } from "./components/ScrollToTop";
 
 export default function App() {
   return (
+    <ThemeProvider>
     <HelmetProvider>
       <BrowserRouter>
         <ScrollToTop />
@@ -27,5 +29,6 @@ export default function App() {
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
+    </ThemeProvider>
   );
 }
