@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const NAV_LINKS = [
@@ -46,7 +47,7 @@ export default function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-slate-900/85 backdrop-blur-xl border-b border-white/10 shadow-xl" : "bg-transparent"
+          scrolled ? "bg-slate-900/80 backdrop-blur-xl border-b border-white/10 shadow-xl" : "bg-transparent"
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,7 +55,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2.5 group">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <div className="h-10 w-10 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/40 group-hover:shadow-indigo-500/60 transition-shadow">
+                <div className="keep-white h-10 w-10 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/40 group-hover:shadow-indigo-500/60 transition-shadow">
                   <span className="text-white font-bold text-sm">MK</span>
                 </div>
               </motion.div>
@@ -83,6 +84,8 @@ export default function Navbar() {
               ))}
             </div>
 
+            <ThemeToggle className="hidden md:block" />
+
             {/* CTA */}
             <Link
               to="/contact"
@@ -92,6 +95,7 @@ export default function Navbar() {
             </Link>
 
             {/* Mobile toggle */}
+            <ThemeToggle className="md:hidden ml-auto mr-2" />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="md:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors"

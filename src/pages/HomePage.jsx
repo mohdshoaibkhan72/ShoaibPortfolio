@@ -1,3 +1,4 @@
+import Tilt3D from "../components/Tilt3D";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import LandingPage from "../components/Hero";
@@ -75,12 +76,13 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="p-4 rounded-xl bg-white/5 border border-white/10"
             >
+              <Tilt3D max={18} scale={1.06} className="p-4 rounded-xl bg-white/5 border border-white/10 shadow-lg">
               <p className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
                 {stat.value}
               </p>
               <p className="text-slate-400 text-sm mt-1">{stat.label}</p>
+              </Tilt3D>
             </motion.div>
           ))}
         </div>
@@ -93,7 +95,7 @@ export default function HomePage() {
       <SkillsAndTools />
 
       {/* Featured Projects */}
-      <section className="py-24 bg-[#030712]">
+      <section className="py-24 bg-page-deep">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-14">
             <p className="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">Selected Work</p>
@@ -117,7 +119,7 @@ export default function HomePage() {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
               {projectsData.filter(p => p.category === "app").slice(0, 3).map(project => (
-                <AppCard key={project.id} project={project} />
+                <Tilt3D key={project.id} max={6} className="force-dark rounded-2xl"><AppCard project={project} /></Tilt3D>
               ))}
             </div>
           </div>
@@ -138,8 +140,8 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projectsData.filter(p => p.category === "webapp" || p.category === "website").slice(0, 3).map(project =>
                 project.category === "webapp"
-                  ? <WebAppCard key={project.id} project={project} />
-                  : <WebsiteCard key={project.id} project={project} />
+                  ? <Tilt3D key={project.id} max={6} className="force-dark rounded-2xl"><WebAppCard project={project} /></Tilt3D>
+                  : <Tilt3D key={project.id} max={6} className="force-dark rounded-2xl"><WebsiteCard project={project} /></Tilt3D>
               )}
             </div>
           </div>
@@ -161,7 +163,7 @@ export default function HomePage() {
       <Testimonials />
 
       {/* Contact CTA */}
-      <section className="py-24 bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950">
+      <section className="py-24 bg-gradient-to-br from-indigo-500/15 via-slate-900 to-purple-500/15">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import FixedBackgroundAnimation from "./FixedBackgroundAnimation";
+const HeroScene = lazy(() => import("./three/HeroScene"));
 
 /* GSAP helps for smooth entrance */
 const ANIM_DURATION = 0.8;
@@ -115,13 +115,18 @@ const LandingPage = () => {
 
   return (
     <>
-      <FixedBackgroundAnimation />
-
       <section
         ref={heroRef}
         className="relative w-full min-h-screen text-white overflow-hidden"
         id="home"
       >
+        {/* 3D backdrop */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800" />
+        <div className="absolute -top-40 left-1/4 h-[480px] w-[480px] rounded-full bg-indigo-500/20 blur-[140px]" />
+        <div className="absolute bottom-0 right-0 h-[420px] w-[420px] rounded-full bg-fuchsia-500/15 blur-[140px]" />
+        <Suspense fallback={null}>
+          <HeroScene />
+        </Suspense>
         <div className="relative z-10 mx-auto max-w-[1200px] px-6 py-20 md:py-28">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 items-center">
             {/* LEFT: content */}
@@ -164,7 +169,7 @@ const LandingPage = () => {
                   href="/MohdShoaib_CV.pdf"
                   download
                   aria-label="Download resume PDF"
-                  className="rounded-md border border-transparent px-6 py-3 text-sm font-semibold text-indigo-200 hover:text-white focus:outline-none focus-visible:ring ring-indigo-500"
+                  className="rounded-md border border-transparent px-6 py-3 text-sm font-semibold text-indigo-200 hover:text-slate-50 focus:outline-none focus-visible:ring ring-indigo-500"
                 >
                   Download résumé
                 </a>
@@ -250,13 +255,13 @@ const LandingPage = () => {
             </div>
 
             {/* RIGHT: colorful developer code card */}
-            <div className="relative h-[380px] sm:h-[440px] md:h-[500px] lg:h-[540px] hero-terminal" ref={terminalRef}>
+            <div className="relative h-[380px] sm:h-[440px] md:h-[500px] lg:h-[540px] hero-terminal float-3d" ref={terminalRef}>
               {/* glow backdrop */}
               <div className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-indigo-500/30 via-fuchsia-500/20 to-cyan-500/30 blur-2xl" />
 
               {/* main card */}
               <div
-                className="relative h-max rounded-2xl border border-white/15 bg-[#0B1020]/80 backdrop-blur-md shadow-2xl overflow-hidden"
+                className="relative h-max rounded-2xl force-dark border border-white/15 bg-[#0B1020]/80 backdrop-blur-md shadow-2xl overflow-hidden"
               >
                 {/* Header bar */}
                 <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">

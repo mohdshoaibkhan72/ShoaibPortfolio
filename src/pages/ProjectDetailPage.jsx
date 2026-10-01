@@ -328,7 +328,7 @@ export default function ProjectDetailPage() {
               )}
 
               {/* Code preview */}
-              <div className="p-4 rounded-2xl bg-[#0B1020] border border-white/10">
+              <div className="force-dark p-4 rounded-2xl bg-[#0B1020] border border-white/10">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
