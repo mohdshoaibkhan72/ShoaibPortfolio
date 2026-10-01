@@ -2,6 +2,7 @@ import React, { useRef, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+const PhotoCard3D = lazy(() => import("./three/PhotoCard3D"));
 const HeroScene = lazy(() => import("./three/HeroScene"));
 
 /* GSAP helps for smooth entrance */
@@ -77,23 +78,6 @@ const LandingPage = () => {
         "-=0.6"
       );
 
-      // Interactive mouse move for terminal
-      const handleMouseMove = (e) => {
-        if (!terminalRef.current) return;
-        const { clientX, clientY } = e;
-        const rect = terminalRef.current.getBoundingClientRect();
-        const x = (clientX - rect.left - rect.width / 2) / 30;
-        const y = (clientY - rect.top - rect.height / 2) / 30;
-
-        gsap.to(terminalRef.current, {
-          rotationY: x,
-          rotationX: -y,
-          transformPerspective: 1000,
-          duration: 0.6,
-          ease: "power2.out",
-        });
-      };
-
       // Floating animation for skill chips
       gsap.to(".gsap-float-hero", {
         y: -10,
@@ -107,8 +91,6 @@ const LandingPage = () => {
         },
       });
 
-      window.addEventListener("mousemove", handleMouseMove);
-      return () => window.removeEventListener("mousemove", handleMouseMove);
     },
     { scope: heroRef }
   );
@@ -161,7 +143,7 @@ const LandingPage = () => {
                   </button>
                 </a>
                 <a href="#projects" aria-label="View projects">
-                  <button className="rounded-md border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-900 transition-colors hover:border-slate-400 focus:outline-none focus-visible:ring ring-indigo-500 dark:border-slate-600 dark:text-slate-200 dark:hover:border-slate-500">
+                  <button className="rounded-md border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-200 transition-colors hover:border-slate-400 focus:outline-none focus-visible:ring ring-indigo-500 dark:border-slate-600 dark:text-slate-200 dark:hover:border-slate-500">
                     View projects
                   </button>
                 </a>
@@ -254,148 +236,12 @@ const LandingPage = () => {
               </div>
             </div>
 
-            {/* RIGHT: colorful developer code card */}
-            <div className="relative h-[380px] sm:h-[440px] md:h-[500px] lg:h-[540px] hero-terminal float-3d" ref={terminalRef}>
-              {/* glow backdrop */}
-              <div className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-indigo-500/30 via-fuchsia-500/20 to-cyan-500/30 blur-2xl" />
-
-              {/* main card */}
-              <div
-                className="relative h-max rounded-2xl force-dark border border-white/15 bg-[#0B1020]/80 backdrop-blur-md shadow-2xl overflow-hidden"
-              >
-                {/* Header bar */}
-                <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2.5 w-2.5 rounded-full bg-rose-500" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
-                    <span className="ml-3 text-[12px] text-slate-300/80">
-                      coder.js
-                    </span>
-                  </div>
-                  <span className="text-[12px] text-slate-400">
-                    live • colorful
-                  </span>
-                </div>
-
-                {/* Code area */}
-                <div className="p-5 md:p-6 h-full overflow-auto">
-                  <pre className="text-[12.5px] md:text-[13px] leading-6 font-mono">
-                    <code>
-                      <span className="text-fuchsia-400">const</span>{" "}
-                      <span className="text-emerald-300">coder</span>
-                      <span className="text-slate-300"> = </span>
-                      <span className="text-cyan-300">{"{"}</span>
-                      {"\n"}
-                      <span className="text-slate-400"> name</span>
-                      <span className="text-slate-300">: </span>
-                      <span className="text-amber-300">'{coder.name}'</span>
-                      <span className="text-cyan-300">,</span>
-                      {"\n"}
-                      <span className="text-slate-400"> skills</span>
-                      <span className="text-slate-300">: </span>
-                      <span className="text-cyan-300">[</span>
-                    </code>
-                  </pre>
-
-                  {/* colorful skill chips */}
-                  <div className="flex flex-wrap gap-2 mt-2 mb-3">
-                    {coder.skills.map((s, i) => (
-                      <span
-                        key={s}
-                        className={`inline-flex items-center rounded-md bg-gradient-to-r ${skillsColors[i % skillsColors.length]
-                          } px-2.5 py-1 text-[11px] font-semibold text-white shadow-sm gsap-float-hero`}
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-
-                  <pre className="text-[12.5px] md:text-[13px] leading-6 font-mono">
-                    <code>
-                      <span className="text-cyan-300"> ]</span>
-                      <span className="text-cyan-300">,</span>
-                      {"\n"}
-                      <span className="text-slate-400"> hardWorker</span>
-                      <span className="text-slate-300">: </span>
-                      <span className="text-emerald-400">
-                        {String(coder.hardWorker)}
-                      </span>
-                      <span className="text-cyan-300">,</span>
-                      {"\n"}
-                      <span className="text-slate-400"> quickLearner</span>
-                      <span className="text-slate-300">: </span>
-                      <span className="text-emerald-400">
-                        {String(coder.quickLearner)}
-                      </span>
-                      <span className="text-cyan-300">,</span>
-                      {"\n"}
-                      <span className="text-slate-400"> problemSolver</span>
-                      <span className="text-slate-300">: </span>
-                      <span className="text-emerald-400">
-                        {String(coder.problemSolver)}
-                      </span>
-                      <span className="text-cyan-300">,</span>
-                      {"\n"}
-                      <span className="text-slate-400"> hireable</span>
-                      <span className="text-slate-300">: </span>
-                      <span className="text-fuchsia-400">function</span>
-                      <span className="text-slate-300">() </span>
-                      <span className="text-cyan-300">{"{"}</span>
-                      {"\n"}
-                      <span className="text-slate-400"> return</span>
-                      <span className="text-slate-300"> (</span>
-                      {"\n"}
-                      <span className="text-slate-400"> this</span>
-                      <span className="text-slate-300">.</span>
-                      <span className="text-rose-300">hardWorker</span>
-                      <span className="text-slate-300"> && </span>
-                      <span className="text-slate-400">this</span>
-                      <span className="text-slate-300">.</span>
-                      <span className="text-rose-300">problemSolver</span>
-                      <span className="text-slate-300"> && </span>
-                      <span className="text-slate-400">this</span>
-                      <span className="text-slate-300">.</span>
-                      <span className="text-rose-300">skills</span>
-                      <span className="text-slate-300">.</span>
-                      <span className="text-rose-300">length</span>
-                      <span className="text-slate-300"> &gt;= </span>
-                      <span className="text-amber-300">5</span>
-                      {"\n"}
-                      <span className="text-slate-300"> )</span>
-                      {"\n"}
-                      <span className="text-cyan-300"> {"}"}</span>
-                      <span className="text-cyan-300">,</span>
-                      {"\n"}
-                      <span className="text-cyan-300">{"}"}</span>
-                      <span className="text-slate-300">;</span>
-                    </code>
-                  </pre>
-
-                  {/* hireable status pill */}
-                  <div className="mt-4">
-                    <span
-                      className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold ${coder.hireable()
-                          ? "bg-emerald-500/20 text-emerald-300"
-                          : "bg-rose-500/20 text-rose-300"
-                        }`}
-                    >
-                      <span
-                        className={`h-2 w-2 rounded-full ${coder.hireable() ? "bg-emerald-400" : "bg-rose-400"
-                          }`}
-                      />
-                      {coder.hireable() ? "Hireable: true" : "Hireable: false"}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* extra floating badge for depth */}
-              <div
-                className="absolute -right-2 -top-6 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 px-3 py-2 text-[11px] font-semibold text-white shadow-xl gsap-float-hero"
-              >
-                Developer Mode
-              </div>
+            {/* RIGHT: real 3D photo card (Three.js) */}
+            <div className="relative h-[360px] sm:h-[440px] md:h-[500px] lg:h-[560px] hero-terminal" ref={terminalRef}>
+              <div className="absolute -inset-6 rounded-full bg-gradient-to-br from-indigo-500/25 via-fuchsia-500/15 to-cyan-500/25 blur-3xl" />
+              <Suspense fallback={<img src="/aiimg1.png" alt="Mohammad Shoaib Khan" className="relative mx-auto mt-16 w-4/5 rounded-3xl shadow-2xl" />}>
+                <PhotoCard3D src="/aiimg1.png" alt="Mohammad Shoaib Khan coding at his workstation" />
+              </Suspense>
             </div>
           </div>
         </div>

@@ -50,18 +50,22 @@ export default function HeroScene() {
 
     const knot = wire(new THREE.TorusKnotGeometry(1.7, 0.45, small ? 120 : 220, 16), "a");
     knot.position.set(small ? 0 : 3.2, 0, -1);
+    knot.visible = false; // the 3D photo card is the hero centrepiece
     group.add(knot);
 
     const ico = wire(new THREE.IcosahedronGeometry(0.9, 1), "b");
-    ico.position.set(small ? -2 : -5, 2.4, -2);
+    ico.position.set(small ? -2 : -7, 2.4, -3);
+    ico.visible = false;
     group.add(ico);
 
     const oct = wire(new THREE.OctahedronGeometry(0.8), "c");
     oct.position.set(small ? 2 : -3.2, -2.6, 0);
+    oct.visible = false;
     group.add(oct);
 
     const ring = wire(new THREE.TorusGeometry(1.2, 0.05, 12, 80), "c");
     ring.position.set(small ? 2 : 6.5, 3, -3);
+    ring.visible = false;
     group.add(ring);
 
     // Particle field
