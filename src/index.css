@@ -2,121 +2,172 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ───────────────────────── Theme tokens ─────────────────────────
+   Space-separated RGB channels so Tailwind's /opacity modifiers work. */
 @layer base {
-  /* Theme tokens (space-separated RGB channels so Tailwind opacity works) */
   :root,
   :root[data-theme="dark"] {
     color-scheme: dark;
-    --slate-50: 248 250 252; --slate-100: 241 245 249; --slate-200: 226 232 240;
-    --slate-300: 203 213 225; --slate-400: 148 163 184; --slate-500: 100 116 139;
-    --slate-600: 71 85 105; --slate-700: 51 65 85; --slate-800: 30 41 59;
-    --slate-900: 15 23 42; --slate-950: 2 6 23;
-    --c-white: 255 255 255; --c-black: 0 0 0;
-    --page-deep: 3 7 18;
+    --bg: 11 11 12;
+    --surface: 20 20 22;
+    --surface-2: 29 29 32;
+    --fg: 236 235 230;
+    --muted: 146 145 139;
+    --accent: 200 255 62;
+    --accent-ink: 11 11 12;
+    --accent-text: 200 255 62;
+    --grain: 0.055;
   }
+
   :root[data-theme="light"] {
     color-scheme: light;
-    --slate-50: 2 6 23; --slate-100: 15 23 42; --slate-200: 30 41 59;
-    --slate-300: 51 65 85; --slate-400: 71 85 105; --slate-500: 100 116 139;
-    --slate-600: 148 163 184; --slate-700: 203 213 225; --slate-800: 226 232 240;
-    --slate-900: 241 245 249; --slate-950: 248 250 252;
-    --c-white: 15 23 42; --c-black: 255 255 255;
-    --page-deep: 255 255 255;
+    --bg: 243 241 236;
+    --surface: 251 250 247;
+    --surface-2: 232 229 222;
+    --fg: 17 17 17;
+    --muted: 102 100 94;
+    --accent: 200 255 62;
+    --accent-ink: 17 17 17;
+    --accent-text: 74 120 10;
+    --grain: 0.035;
   }
 
   html {
-    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
+    scrollbar-gutter: stable;
   }
 
   body {
-    @apply bg-slate-900 text-slate-200 antialiased transition-colors duration-500;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    @apply bg-bg font-sans text-fg antialiased;
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    @apply bg-indigo-500/30 text-white;
+    background: rgb(var(--accent));
+    color: rgb(var(--accent-ink));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent-text));
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  img {
+    -webkit-user-drag: none;
   }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+/* ───────────────────────── Components ───────────────────────── */
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-[1440px] px-4 sm:px-8 lg:px-12;
+  }
+
+  /* Small uppercase mono label: "(01) — About" */
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase leading-none tracking-[0.14em] text-muted;
+  }
+
+  .display {
+    @apply font-semibold;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-fg/[0.12] px-3 py-1 text-xs text-fg/80;
+  }
+
+  .btn {
+    @apply relative inline-flex h-12 items-center justify-center gap-2.5 overflow-hidden whitespace-nowrap rounded-full px-6 text-[15px] font-medium transition-colors duration-300;
+  }
+  .btn-primary {
+    @apply btn bg-accent text-accent-ink hover:bg-fg hover:text-bg;
+  }
+  .btn-ghost {
+    @apply btn border border-fg/15 text-fg hover:border-fg/50;
+  }
+
+  /* Phone mockup fan used in project visuals */
+  .phone-l,
+  .phone-r,
+  .phone-c {
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .phone-l { transform: translate(22%, 7%) rotate(-7deg); }
+  .phone-r { transform: translate(-22%, 7%) rotate(7deg); }
+  .group:hover .phone-l { transform: translate(14%, 4%) rotate(-10deg); }
+  .group:hover .phone-r { transform: translate(-14%, 4%) rotate(10deg); }
+  .group:hover .phone-c { transform: translateY(-2%); }
+  .phone-pair-l { transform: translate(10%, 5%) rotate(-5deg); }
+  .phone-pair-r { transform: translate(-10%, -3%) rotate(5deg); }
+  .group:hover .phone-pair-l { transform: translate(4%, 3%) rotate(-8deg); }
+  .group:hover .phone-pair-r { transform: translate(-4%, -5%) rotate(8deg); }
 }
 
-::-webkit-scrollbar-track {
-  @apply bg-slate-900;
+/* ───────────────────────── Utilities ───────────────────────── */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+  .serif-em {
+    font-family: "Instrument Serif", ui-serif, Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
 }
 
+/* ───────────────────────── Global extras ───────────────────────── */
+
+/* Film grain over everything — subtle texture that keeps flat colours from feeling digital */
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 95;
+  pointer-events: none;
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Theme switch: circular reveal via the View Transitions API */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: rgb(var(--bg)); }
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-700 rounded-full border-2 border-slate-900 hover:bg-indigo-500 transition-colors;
+  background: rgb(var(--fg) / 0.18);
+  border: 3px solid rgb(var(--bg));
+  border-radius: 999px;
 }
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--fg) / 0.35); }
 
-/* Glassmorphism utility */
-.glass {
-  @apply bg-white/5 backdrop-blur-xl border border-white/10;
-}
-
-
-/* ---------- Theme helpers ---------- */
-.bg-page-deep { background-color: rgb(var(--page-deep)); }
-
-/* Elements that sit on saturated gradients / always-dark surfaces keep white text */
-[data-theme="light"] [class*="bg-gradient-to-"][class*="from-indigo-6"].text-white,
-[data-theme="light"] [class*="bg-gradient-to-"][class*="from-indigo-5"].text-white,
-[data-theme="light"] [class*="bg-gradient-to-"][class*="from-emerald"].text-white,
-[data-theme="light"] .text-white[class*="bg-indigo-5"]:not([class*="bg-indigo-5/"]),
-[data-theme="light"] .text-white[class*="bg-indigo-6"], [data-theme="light"] .text-white[class*="bg-indigo-7"],
-[data-theme="light"] .text-white[class*="bg-purple-6"], [data-theme="light"] .text-white[class*="bg-emerald-6"],
-[data-theme="light"] .keep-white, [data-theme="light"] .keep-white * { color: #fff; }
-
-/* Always-dark "device" cards keep dark-mode colours inside */
-[data-theme="light"] .force-dark {
-  --slate-200: 226 232 240; --slate-300: 203 213 225; --slate-400: 148 163 184;
-  --slate-500: 100 116 139; --c-white: 255 255 255; --c-black: 0 0 0;
-  color: #e2e8f0;
-}
-
-/* Light-mode polish */
-[data-theme="light"] ::selection { @apply bg-indigo-500/25 text-slate-100; }
-[data-theme="light"] .glass { @apply bg-white/60 border-black/10; }
-[data-theme="light"] ::-webkit-scrollbar-thumb { border-color: #f1f5f9; }
-
-/* ---------- 3D helpers ---------- */
-.perspective-1000 { perspective: 1000px; }
-.preserve-3d { transform-style: preserve-3d; }
-.tilt-3d {
-  transform-style: preserve-3d;
-  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
-  will-change: transform;
-}
-.tilt-3d > * { transform: translateZ(0); }
-.float-3d { animation: float3d 7s ease-in-out infinite; }
-@keyframes float3d {
-  0%, 100% { transform: translate3d(0, 0, 0) rotateX(0) rotateY(0); }
-  50% { transform: translate3d(0, -14px, 30px) rotateX(3deg) rotateY(-4deg); }
-}
 @media (prefers-reduced-motion: reduce) {
-  .float-3d { animation: none; }
-  .tilt-3d { transition: none; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
-/* Theme toggle */
-.theme-toggle { perspective: 300px; }
-.theme-toggle .coin {
-  transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(.4, 1.6, .5, 1);
+@keyframes grow-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
-.theme-toggle[data-mode="light"] .coin { transform: rotateY(180deg); }
-.theme-toggle .face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-.theme-toggle .face.back { transform: rotateY(180deg); }
-
-/* Light mode: pastel accent text needs more contrast on light surfaces */
-[data-theme="light"] .text-indigo-200, [data-theme="light"] .text-indigo-300, [data-theme="light"] .text-indigo-400 { color: #4f46e5; }
-[data-theme="light"] .text-cyan-300 { color: #0e7490; }
-[data-theme="light"] .text-sky-300, [data-theme="light"] .text-sky-400 { color: #0369a1; }
-[data-theme="light"] .text-emerald-300, [data-theme="light"] .text-emerald-400 { color: #047857; }
-[data-theme="light"] .text-violet-300, [data-theme="light"] .text-purple-400 { color: #6d28d9; }
-[data-theme="light"] .force-dark .text-cyan-300 { color: #67e8f9; }
-[data-theme="light"] .force-dark .text-emerald-300 { color: #6ee7b7; }
-[data-theme="light"] .force-dark .text-indigo-300 { color: #a5b4fc; }

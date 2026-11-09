@@ -4,8 +4,8 @@
   "description": "Senior Full-Stack & Mobile App Developer. React Native, MERN Stack. 16+ production apps.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#4F46E5",
+  "background_color": "#0b0b0c",
+  "theme_color": "#0b0b0c",
   "orientation": "portrait-primary",
   "icons": [
     {
