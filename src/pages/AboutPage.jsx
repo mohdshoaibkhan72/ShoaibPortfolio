@@ -117,7 +117,7 @@ export default function AboutPage() {
         <SectionHeader index="02" label="Process" title={[<span key="w">How I <span className="serif-em">work</span></span>]} />
         <ol className="grid gap-px overflow-hidden rounded-[24px] border border-fg/10 bg-fg/10 sm:grid-cols-2 lg:grid-cols-4">
           {workProcess.map((step, i) => (
-            <Reveal as="li" key={step.title} delay={i * 0.07} className="flex min-h-[16rem] flex-col justify-between bg-bg p-7 md:p-9">
+            <Reveal as="li" key={step.title} delay={i * 0.07} className="flex min-h-[11rem] flex-col justify-between gap-6 bg-bg p-6 sm:min-h-[16rem] md:p-9">
               <span className="font-mono text-sm text-muted">0{i + 1}</span>
               <div>
                 <h3 className="text-2xl font-medium tracking-[-0.03em] md:text-3xl">{step.title}</h3>

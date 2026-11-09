@@ -73,12 +73,7 @@ export default function ProjectVisual({ project, className, eager = false }) {
           loading={eager ? "eager" : "lazy"}
           decoding="async"
           draggable="false"
-          style={{
-            aspectRatio: cover.ratio || 1,
-            maskImage: "linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent)",
-            WebkitMaskImage: "linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent)",
-          }}
-          className="absolute left-1/2 top-0 h-full w-auto max-w-none -translate-x-1/2 transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.035]"
+          className="absolute inset-0 h-full w-full object-contain transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.035]"
         />
       </div>
     );

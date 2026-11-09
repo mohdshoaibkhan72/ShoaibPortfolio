@@ -70,7 +70,7 @@ export default function ProjectDetailPage() {
       <article>
         <header className="container-x pt-28 md:pt-40">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.2 }}>
-            <Link to="/projects" className="eyebrow group inline-flex items-center gap-2 transition-colors hover:text-fg">
+            <Link to="/projects" className="eyebrow group -my-3 inline-flex items-center gap-2 py-3 transition-colors hover:text-fg">
               <FiArrowLeft className="h-3.5 w-3.5 transition-transform duration-500 ease-out-expo group-hover:-translate-x-1" />
               All work
             </Link>

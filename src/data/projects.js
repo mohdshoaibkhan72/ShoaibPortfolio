@@ -87,7 +87,7 @@ export const projectsData = [
     links: [{ label: "Live demo", href: "https://school.klimb.agency/" }],
     color: "#6d4cff",
     featured: 2,
-    cover: { type: "image", src: "/img/klimb/school-erp.webp", bg: ["#f0edff", "#e8e2fb"], ratio: 4 / 3 },
+    cover: { type: "image", src: "/img/klimb/school-erp.webp", bg: ["#f0edff", "#e8e2fb"] },
     gallery: [{ src: "/img/klimb/school-erp.webp", caption: "Product site & dashboard", kind: "mockup" }],
     spec: {
       name: "klimbSchoolErp",
@@ -242,7 +242,7 @@ export const projectsData = [
     links: [{ label: "Visit product", href: "https://hrcrm.klimb.agency/" }],
     color: "#6d4cff",
     featured: 0,
-    cover: { type: "image", src: "/img/klimb/hr-crm.webp", bg: ["#f0edff", "#e8e2fb"], ratio: 4 / 3 },
+    cover: { type: "image", src: "/img/klimb/hr-crm.webp", bg: ["#f0edff", "#e8e2fb"] },
     gallery: [{ src: "/img/klimb/hr-crm.webp", caption: "Product site & CRM dashboard", kind: "mockup" }],
     spec: {
       name: "klimbHrCrm",

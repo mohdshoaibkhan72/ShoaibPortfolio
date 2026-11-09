@@ -32,7 +32,7 @@ export function Button({ to, href, children, variant = "primary", icon: Icon = F
 
 /** Inline text link with an underline that draws in on hover. */
 export function ArrowLink({ to, href, children, className, icon: Icon = FiArrowUpRight, ...rest }) {
-  const classes = cn("group/link inline-flex items-center gap-1.5 text-sm font-medium", className);
+  const classes = cn("group/link -my-2 inline-flex items-center gap-1.5 py-2 text-sm font-medium", className);
   const content = (
     <>
       <span className="relative">

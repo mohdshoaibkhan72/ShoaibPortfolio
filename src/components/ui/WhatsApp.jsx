@@ -33,7 +33,7 @@ export function WhatsAppButton({ variant = "solid", children = "Chat on WhatsApp
         )}
       />
       <RollText>{children}</RollText>
-      {showNumber && <span className="font-mono text-xs opacity-70">{whatsapp.number}</span>}
+      {showNumber && <span className="hidden font-mono text-xs opacity-70 min-[380px]:inline">{whatsapp.number}</span>}
     </a>
   );
 }
@@ -81,7 +81,7 @@ export function WhatsAppFab() {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: 8, scale: 0.97 }}
                 transition={{ duration: 0.35, ease: EASE }}
-                className="relative hidden rounded-2xl rounded-br-md bg-fg px-4 py-2.5 text-bg shadow-xl sm:block"
+                className="relative hidden rounded-2xl rounded-br-md bg-fg px-4 py-2.5 text-bg shadow-xl sm:block [@media(max-height:560px)]:hidden"
               >
                 <span className="block text-sm font-medium">Chat with me on WhatsApp</span>
                 <span className="block font-mono text-[11px] opacity-60">{whatsapp.number}</span>

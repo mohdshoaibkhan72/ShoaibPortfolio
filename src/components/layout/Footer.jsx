@@ -13,7 +13,7 @@ export default function Footer({ compact = false }) {
 
   return (
     <footer className="relative overflow-hidden rounded-t-[28px] bg-fg text-bg md:rounded-t-[44px]">
-      <div className="container-x pb-8 pt-20 md:pt-28">
+      <div className="container-x pb-24 pt-20 md:pb-8 md:pt-28">
         {!compact && (
           <div className="relative mb-20 md:mb-28">
             <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-bg/55">Have a project in mind?</p>
@@ -43,7 +43,7 @@ export default function Footer({ compact = false }) {
             <div className="mt-4 flex flex-wrap items-center gap-4">
               <a
                 href={`mailto:${profile.email}`}
-                className="break-all text-[1.2rem] font-medium tracking-tight underline decoration-bg/25 underline-offset-[6px] transition-colors hover:decoration-bg min-[400px]:text-2xl sm:text-3xl lg:text-4xl"
+                className="break-all text-[1.05rem] font-medium tracking-tight underline decoration-bg/25 underline-offset-[6px] transition-colors hover:decoration-bg min-[360px]:text-[1.15rem] min-[400px]:text-2xl sm:text-3xl lg:text-4xl"
               >
                 {profile.email}
               </a>
@@ -59,17 +59,17 @@ export default function Footer({ compact = false }) {
 
           <div className="md:col-span-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-bg/55">Elsewhere</p>
-            <ul className="mt-4 space-y-2">
+            <ul className="mt-4 space-y-3">
               {socials.map((s) => (
                 <li key={s.label}>
-                  <a href={s.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-1.5 hover:underline">
+                  <a href={s.href} target="_blank" rel="noreferrer" className="group -my-1.5 inline-flex items-center gap-1.5 py-1.5 hover:underline">
                     {s.label}
                     <FiArrowUpRight className="h-3.5 w-3.5 opacity-50 transition-opacity group-hover:opacity-100" />
                   </a>
                 </li>
               ))}
               <li>
-                <a href={profile.cv} download className="group inline-flex items-center gap-1.5 hover:underline">
+                <a href={profile.cv} download className="group -my-1.5 inline-flex items-center gap-1.5 py-1.5 hover:underline">
                   Download CV
                   <FiArrowUpRight className="h-3.5 w-3.5 opacity-50 transition-opacity group-hover:opacity-100" />
                 </a>
@@ -79,10 +79,10 @@ export default function Footer({ compact = false }) {
 
           <div className="md:col-span-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-bg/55">Sitemap</p>
-            <ul className="mt-4 grid grid-cols-2 gap-2 md:grid-cols-1">
+            <ul className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-1">
               {navLinks.map((l) => (
                 <li key={l.path}>
-                  <Link to={l.path} className="hover:underline">
+                  <Link to={l.path} className="-my-1.5 inline-block py-1.5 hover:underline">
                     {l.label}
                   </Link>
                 </li>
@@ -91,15 +91,15 @@ export default function Footer({ compact = false }) {
           </div>
         </div>
 
-        {/* Right padding keeps "Back to top" clear of the floating WhatsApp button */}
-        <div className="mt-16 flex flex-col gap-4 border-t border-bg/15 pr-20 pt-6 text-sm text-bg/60 sm:flex-row sm:items-center sm:justify-between md:pr-24">
+        {/* md:pr-24 keeps "Back to top" clear of the floating WhatsApp button; phones get extra bottom padding instead */}
+        <div className="mt-16 flex flex-col gap-4 border-t border-bg/15 pt-6 text-sm text-bg/60 sm:flex-row sm:items-center sm:justify-between md:pr-24">
           <p>© {year} {profile.name}. Designed & built by me.</p>
           <div className="flex items-center justify-between gap-6 sm:justify-end">
-            <LocalTime className="font-mono text-xs" />
+            <LocalTime className="whitespace-nowrap font-mono text-xs" />
             <button
               type="button"
               onClick={() => scrollToTarget(0)}
-              className="inline-flex items-center gap-2 text-bg transition-opacity hover:opacity-70"
+              className="-my-2 inline-flex items-center gap-2 whitespace-nowrap py-2 text-bg transition-opacity hover:opacity-70"
             >
               Back to top <FiArrowUp className="h-4 w-4" />
             </button>

@@ -122,14 +122,21 @@ export default function Hero() {
             <span className="serif-em text-[1.1em]">fintech, commerce & SaaS</span> products — from first pixel to
             production.
           </motion.p>
-          <motion.div {...fadeUp(0.4)} className="mt-8 flex flex-wrap gap-3 md:mt-10">
-            <Magnetic>
-              <Button onClick={() => scrollToTarget("#work", { offset: -20 })} icon={FiArrowDown}>
+          {/* On phones the two buttons share the row equally; below ~340px they stack */}
+          <motion.div {...fadeUp(0.4)} className="mt-8 flex flex-wrap gap-2.5 sm:gap-3 md:mt-10">
+            <Magnetic className="min-w-[9rem] flex-1 sm:flex-none">
+              <Button
+                onClick={() => scrollToTarget("#work", { offset: -20 })}
+                icon={FiArrowDown}
+                className="w-full px-4 sm:px-6"
+              >
                 See my work
               </Button>
             </Magnetic>
-            <Magnetic>
-              <WhatsAppButton variant="ghost">WhatsApp me</WhatsAppButton>
+            <Magnetic className="min-w-[9rem] flex-1 sm:flex-none">
+              <WhatsAppButton variant="ghost" className="w-full px-4 sm:px-6">
+                WhatsApp me
+              </WhatsAppButton>
             </Magnetic>
           </motion.div>
         </div>

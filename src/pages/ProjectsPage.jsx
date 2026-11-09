@@ -99,7 +99,7 @@ export default function ProjectsPage() {
         title={[
           <span key="w">
             Work
-            <sup className="ml-2 align-super font-mono text-[0.16em] font-normal tracking-normal text-muted">
+            <sup className="ml-2 align-super font-mono text-[max(0.16em,13px)] font-normal tracking-normal text-muted">
               ({projectsData.length})
             </sup>
           </span>,
@@ -108,8 +108,12 @@ export default function ProjectsPage() {
       />
 
       <section className="container-x pb-28 pt-14 md:pb-40 md:pt-20">
-        <div className="mb-10 flex flex-wrap items-center justify-between gap-4 border-y border-fg/10 py-4 md:mb-14">
-          <div className="no-scrollbar -mx-1 flex gap-1.5 overflow-x-auto px-1" role="tablist" aria-label="Filter projects">
+        <div className="mb-10 flex items-center justify-between gap-4 border-y border-fg/10 py-4 md:mb-14">
+          <div
+            className="no-scrollbar -mx-1 flex min-w-0 gap-1.5 overflow-x-auto px-1 pr-8 [mask-image:linear-gradient(90deg,#000_85%,transparent)] md:pr-1 md:[mask-image:none]"
+            role="tablist"
+            aria-label="Filter projects"
+          >
             {FILTERS.map((f) => {
               const active = f.key === filter;
               return (
@@ -133,14 +137,14 @@ export default function ProjectsPage() {
                   )}
                   <span className="relative">
                     {f.label}
-                    <sup className="ml-1 font-mono text-[10px] opacity-60">{f.count}</sup>
+                    <sup className="ml-1 font-mono text-[11px] opacity-60">{f.count}</sup>
                   </span>
                 </button>
               );
             })}
           </div>
 
-          <div className="flex items-center gap-1 rounded-full border border-fg/10 p-1" aria-label="Layout">
+          <div className="hidden shrink-0 items-center gap-1 rounded-full border border-fg/10 p-1 md:flex" aria-label="Layout">
             {[
               ["grid", FiGrid, "Grid view"],
               ["list", FiList, "List view"],

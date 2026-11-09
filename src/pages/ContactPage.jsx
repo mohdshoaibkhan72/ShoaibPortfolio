@@ -35,7 +35,7 @@ const contactStructuredData = {
 };
 
 const inputClass =
-  "w-full border-b border-fg/15 bg-transparent pb-4 pt-2 text-xl tracking-tight outline-none transition-colors placeholder:text-fg/25 focus:border-fg md:text-2xl";
+  "w-full min-w-0 border-b border-fg/15 bg-transparent pb-4 pt-2 text-xl tracking-tight outline-none transition-colors placeholder:text-fg/25 focus:border-fg md:text-2xl";
 
 function Field({ number, label, htmlFor, children }) {
   return (
@@ -126,9 +126,10 @@ export default function ContactPage() {
         titleClassName="text-[clamp(3rem,9vw,9.5rem)]"
       />
 
-      <section className="container-x grid gap-16 pb-28 pt-14 md:pb-40 md:pt-24 lg:grid-cols-12 lg:gap-12">
-        {/* Form */}
-        <Reveal className="lg:col-span-7">
+      {/* Phones: contact card → form → FAQ. Desktop: form on the left, card + FAQ stacked on the right. */}
+      <section className="container-x grid gap-14 pb-28 pt-12 md:pb-40 md:pt-24 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-12">
+        {/* Form (min-w-0 stops the inputs' intrinsic width from overflowing narrow screens) */}
+        <Reveal className="min-w-0 lg:col-span-7 lg:row-span-2 lg:row-start-1">
           <p className="contact-intro mb-12 max-w-xl text-lg leading-snug text-muted text-pretty">
             Have a project in mind? Tell me a little about it — I usually reply within 24 hours with questions, a rough plan
             and an estimate.
@@ -190,7 +191,7 @@ export default function ContactPage() {
             </Field>
 
             <div className="flex flex-wrap items-center gap-6">
-              <button type="submit" disabled={status === "sending"} className="btn-primary group/roll h-14 px-8 text-base disabled:opacity-60">
+              <button type="submit" disabled={status === "sending"} className="btn-primary group/roll h-14 w-full px-8 text-base disabled:opacity-60 sm:w-auto">
                 <RollText>{status === "sending" ? "Sending…" : "Send message"}</RollText>
                 {status === "sending" ? <FiLoader className="h-4 w-4 animate-spin" /> : <FiSend className="h-4 w-4" />}
               </button>
@@ -214,10 +215,10 @@ export default function ContactPage() {
           </form>
         </Reveal>
 
-        {/* Details */}
-        <Reveal delay={0.1} className="lg:col-span-4 lg:col-start-9">
-          <div className="flex flex-col gap-10 lg:sticky lg:top-28">
-            <div className="rounded-[24px] border border-fg/10 bg-surface p-7">
+        {/* Contact card */}
+        <Reveal delay={0.1} className="order-first min-w-0 lg:order-none lg:col-span-4 lg:col-start-9 lg:row-start-1">
+          <div>
+            <div className="rounded-[24px] border border-fg/10 bg-surface p-5 sm:p-7">
               <div className="flex items-center gap-2.5 text-sm">
                 <StatusDot />
                 Available for freelance work
@@ -233,7 +234,7 @@ export default function ContactPage() {
                 {whatsapp.number}
               </a>
               <p className="eyebrow mt-8">Email</p>
-              <a href={`mailto:${profile.email}`} className="mt-2 block break-all text-xl font-medium tracking-tight hover:underline">
+              <a href={`mailto:${profile.email}`} className="mt-2 block break-all text-[1.05rem] font-medium tracking-tight hover:underline min-[400px]:text-xl">
                 {profile.email}
               </a>
               <CopyButton value={profile.email} className="mt-3 border-fg/20" />
@@ -243,25 +244,26 @@ export default function ContactPage() {
               </a>
               <p className="eyebrow mt-8">Local time</p>
               <LocalTime className="mt-2 block text-xl font-medium tracking-tight" />
-              <div className="mt-8 flex gap-5 border-t border-fg/10 pt-6 text-sm">
+              <div className="mt-8 flex flex-wrap gap-x-5 gap-y-1 border-t border-fg/10 pt-4 text-sm">
                 {socials.map((s) => (
-                  <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-1 hover:underline">
+                  <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-1 py-2 hover:underline">
                     {s.label}
                     <FiArrowUpRight className="h-3.5 w-3.5 opacity-60" />
                   </a>
                 ))}
               </div>
             </div>
-
-            <div>
-              <h2 className="eyebrow mb-3">Questions</h2>
-              <ul className="border-b border-fg/10">
-                {faqs.map((f) => (
-                  <Faq key={f.q} {...f} />
-                ))}
-              </ul>
-            </div>
           </div>
+        </Reveal>
+
+        {/* FAQ */}
+        <Reveal delay={0.15} className="min-w-0 lg:col-span-4 lg:col-start-9 lg:row-start-2">
+          <h2 className="eyebrow mb-3">Questions</h2>
+          <ul className="border-b border-fg/10">
+            {faqs.map((f) => (
+              <Faq key={f.q} {...f} />
+            ))}
+          </ul>
         </Reveal>
       </section>
     </>

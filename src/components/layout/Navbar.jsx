@@ -145,7 +145,7 @@ export default function Navbar() {
                     >
                       <Link
                         to={link.path}
-                        className="flex items-center justify-between py-4 text-[2.6rem] font-semibold leading-none tracking-[-0.04em]"
+                        className="flex items-center justify-between py-[clamp(0.6rem,1.8svh,1rem)] text-[clamp(1.9rem,6.4svh,2.6rem)] font-semibold leading-none tracking-[-0.04em]"
                       >
                         <span className="flex items-center gap-3">
                           {isActive(link.path) && <span className="h-2.5 w-2.5 rounded-full bg-accent-text" />}
@@ -159,13 +159,13 @@ export default function Navbar() {
               </ul>
             </nav>
             <motion.div
-              className="container-x flex flex-col gap-5 pb-8 pt-6"
+              className="container-x flex flex-col gap-5 pb-8 pt-6 [@media(max-height:640px)]:gap-4 [@media(max-height:640px)]:pb-5"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.6 }}
             >
               <WhatsAppButton showNumber className="w-full" />
-              <a href={`mailto:${profile.email}`} className="text-lg font-medium">
+              <a href={`mailto:${profile.email}`} className="text-lg font-medium [@media(max-height:640px)]:hidden">
                 {profile.email}
               </a>
               {/* Right padding keeps these clear of the floating WhatsApp button */}
@@ -177,7 +177,7 @@ export default function Navbar() {
                     </a>
                   ))}
                 </div>
-                <LocalTime className="eyebrow" />
+                <LocalTime className="eyebrow [@media(max-height:640px)]:hidden" />
               </div>
             </motion.div>
           </motion.div>
