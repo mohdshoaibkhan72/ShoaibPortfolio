@@ -41,7 +41,6 @@
   body {
     @apply bg-bg font-sans text-fg antialiased;
     font-feature-settings: "ss01", "cv11";
-    text-rendering: optimizeLegibility;
   }
 
   ::selection {
@@ -127,7 +126,7 @@
 /* Film grain over everything — subtle texture that keeps flat colours from feeling digital */
 .grain {
   position: fixed;
-  inset: -50%;
+  inset: 0;
   z-index: 95;
   pointer-events: none;
   opacity: var(--grain);
@@ -170,4 +169,10 @@ html.lenis, html.lenis body { height: auto; }
 @keyframes grow-x {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
+}
+
+/* Hero portrait: fade out the photo's straight bottom crop so it melts into the page */
+.portrait-fade {
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 97%);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 97%);
 }

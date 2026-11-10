@@ -37,9 +37,9 @@ const STACK = [
 
 export default function StackMarquee() {
   return (
-    <section aria-label="Technologies I work with" className="border-y border-fg/10 py-6 md:py-8">
+    <section aria-label="Technologies I work with" className="relative border-y border-fg/10 py-6 md:py-8">
       <p className="sr-only">{STACK.map(([, label]) => label).join(", ")}</p>
-      <Marquee duration={50} className="[mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
+      <Marquee duration={50}>
         {STACK.map(([Icon, label]) => (
           <span
             key={label}
@@ -52,6 +52,8 @@ export default function StackMarquee() {
           </span>
         ))}
       </Marquee>
+      <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-bg to-transparent md:w-40" />
+      <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-bg to-transparent md:w-40" />
     </section>
   );
 }

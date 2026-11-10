@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
 import RollText from "./RollText";
 import { whatsapp } from "../../data/site";
+import { useIntroDone } from "../../context/IntroContext";
 import { EASE, cn } from "../../lib/utils";
 
 /**
@@ -40,11 +41,14 @@ export function WhatsAppButton({ variant = "solid", children = "Chat on WhatsApp
 
 /** Floating WhatsApp button, bottom-right on every page. Its bubble shows briefly, then on hover. */
 export function WhatsAppFab() {
+  const introDone = useIntroDone();
   const [mounted, setMounted] = useState(false);
   const [intro, setIntro] = useState(false);
   const [hover, setHover] = useState(false);
 
+  // Timers start once the loading screen has lifted, so the bubble isn't hidden behind it.
   useEffect(() => {
+    if (!introDone) return;
     const appear = setTimeout(() => {
       setMounted(true);
       setIntro(true);
@@ -54,7 +58,7 @@ export function WhatsAppFab() {
       clearTimeout(appear);
       clearTimeout(hide);
     };
-  }, []);
+  }, [introDone]);
 
   const bubble = intro || hover;
 

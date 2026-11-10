@@ -19,7 +19,7 @@ function StackCard({ project, index, total, progress, stacked }) {
     <div className={cn(stacked && "sticky top-0 flex h-screen items-center")}>
       <motion.article
         style={stacked ? { scale, top: index * 22 - 10 } : undefined}
-        className="relative w-full origin-top"
+        className={cn("relative w-full origin-top", stacked && "will-change-transform")}
       >
         <Link
           to={`/projects/${project.id}`}

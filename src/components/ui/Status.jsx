@@ -15,7 +15,7 @@ export function Availability({ className }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2.5 rounded-full border border-fg/10 bg-fg/[0.03] py-2 pl-3 pr-4 text-[13px] backdrop-blur",
+        "inline-flex items-center gap-2.5 rounded-full border border-fg/10 bg-bg/85 py-2 pl-3 pr-4 text-[13px]",
         className
       )}
     >

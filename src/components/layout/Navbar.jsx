@@ -9,6 +9,7 @@ import { WhatsAppButton } from "../ui/WhatsApp";
 import { navLinks, profile, socials } from "../../data/site";
 import { setScrollLocked } from "../../lib/smoothScroll";
 import { EASE, cn } from "../../lib/utils";
+import { useIntroDone } from "../../context/IntroContext";
 
 const EASE_IO = [0.76, 0, 0.24, 1];
 
@@ -17,6 +18,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const introDone = useIntroDone(); // stays tucked away until the loading screen lifts
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (y) => {
@@ -44,13 +46,14 @@ export default function Navbar() {
     <>
       <motion.header
         className="fixed inset-x-0 top-0 z-50"
-        animate={{ y: hidden && !open ? "-105%" : "0%" }}
+        initial={false}
+        animate={{ y: !introDone || (hidden && !open) ? "-105%" : "0%" }}
         transition={{ duration: 0.55, ease: EASE }}
       >
         <div
           className={cn(
             "border-b transition-[background-color,border-color] duration-500",
-            scrolled && !open ? "border-fg/[0.07] bg-bg/75 backdrop-blur-xl" : "border-transparent bg-transparent"
+            scrolled && !open ? "border-fg/[0.07] bg-bg/[0.92]" : "border-transparent bg-transparent"
           )}
         >
           <nav className="container-x flex h-16 items-center justify-between gap-4 md:h-20" aria-label="Main">
@@ -63,7 +66,7 @@ export default function Navbar() {
               </span>
             </Link>
 
-            <ul className="hidden items-center gap-1 rounded-full border border-fg/10 bg-bg/40 p-1 backdrop-blur md:flex">
+            <ul className="hidden items-center gap-1 rounded-full border border-fg/10 bg-bg/80 p-1 md:flex">
               {navLinks.slice(1).map((link) => {
                 const active = isActive(link.path);
                 return (

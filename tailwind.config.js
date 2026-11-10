@@ -20,6 +20,7 @@ export default {
         sans: ['"Geist"', "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
         mono: ['"Geist Mono"', "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
         serif: ['"Instrument Serif"', "ui-serif", "Georgia", "serif"],
+        condensed: ['"Anton"', "Impact", '"Arial Narrow"', "sans-serif"],
       },
       transitionTimingFunction: {
         "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",

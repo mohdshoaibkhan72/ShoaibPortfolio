@@ -39,10 +39,12 @@ export const navLinks = [
   { label: "Contact", path: "/contact" },
 ];
 
+/** Cut-out portrait used in the hero (the loading screen preloads it). */
+export const heroPortrait = { src: "/img/shoaib-hero.webp", width: 822, height: 1217 };
+
 export const heroStats = [
   { value: careerYears, suffix: "+", label: "Years building\nproduction software" },
   { value: 16, suffix: "+", label: "Apps & platforms\nshipped to production" },
-  { value: loanyfyYears, suffix: "+", label: "Years full-time at\nLoanyfy (fintech)" },
   { value: 24, suffix: "h", label: "Typical reply time\non new enquiries" },
 ];
 
