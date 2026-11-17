@@ -2,7 +2,6 @@ import { useCallback, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiArrowLeft, FiArrowUpRight } from "react-icons/fi";
-import { SEOHead } from "../components/SEOHead";
 import { MaskLines, Reveal } from "../components/ui/Reveal";
 import { Button } from "../components/ui/Button";
 import ProjectVisual from "../components/project/ProjectVisual";
@@ -33,40 +32,9 @@ export default function ProjectDetailPage() {
   const category = CATEGORIES[project.category];
   const next = nextProject(project.id);
   const chips = projectChips(project);
-  const firstShot = project.gallery[0]?.src;
-
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: project.title,
-    description: project.description,
-    url: project.links[0]?.href || `https://mohammadshoaibkhan.com/projects/${project.id}`,
-    author: { "@type": "Person", name: "Mohammad Shoaib Khan", url: "https://mohammadshoaibkhan.com" },
-    applicationCategory: project.category === "app" ? "MobileApplication" : "WebApplication",
-    operatingSystem: project.category === "app" ? "Android, iOS" : "Web",
-    keywords: chips.join(", "),
-    image: firstShot ? `https://mohammadshoaibkhan.com${firstShot}` : undefined,
-    breadcrumb: {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://mohammadshoaibkhan.com" },
-        { "@type": "ListItem", position: 2, name: "Projects", item: "https://mohammadshoaibkhan.com/projects" },
-        { "@type": "ListItem", position: 3, name: project.title, item: `https://mohammadshoaibkhan.com/projects/${project.id}` },
-      ],
-    },
-  };
 
   return (
     <>
-      <SEOHead
-        title={`${project.title} | Mohammad Shoaib Khan`}
-        description={`${project.tagline}. ${project.description.slice(0, 120)}...`}
-        keywords={`${project.title}, ${chips.join(", ")}, Mohammad Shoaib Khan`}
-        canonicalPath={`/projects/${project.id}`}
-        ogImage={firstShot ? `https://mohammadshoaibkhan.com${firstShot}` : undefined}
-        structuredData={structuredData}
-      />
-
       <article>
         <header className="container-x pt-28 md:pt-40">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.2 }}>

@@ -6,6 +6,7 @@ const META_COLORS = { dark: "#0b0b0c", light: "#f3f1ec" };
 const ThemeContext = createContext({ theme: "dark", toggle: () => {} });
 
 const readInitial = () => {
+  if (typeof document === "undefined") return "dark"; // prerendering at build time
   const attr = document.documentElement.getAttribute("data-theme");
   return attr === "light" || attr === "dark" ? attr : "dark";
 };

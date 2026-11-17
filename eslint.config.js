@@ -5,9 +5,10 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
+  // Build output — a standalone `ignores` object applies globally
+  { ignores: ['dist', 'dist-ssr'] },
   {
     files: ['**/*.{js,jsx}'],
-    ignores: ['dist'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -35,5 +36,11 @@ export default [
         { allowConstantExport: true },
       ],
     },
+  },
+  // Build-time Node code (prerender, share-image generator, SSR entry)
+  {
+    files: ['scripts/**/*.mjs', 'src/entry-server.jsx'],
+    languageOptions: { globals: { ...globals.node, ...globals.browser } },
+    rules: { 'react-refresh/only-export-components': 'off' },
   },
 ]

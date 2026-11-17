@@ -176,3 +176,19 @@ html.lenis, html.lenis body { height: auto; }
   -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 97%);
   mask-image: linear-gradient(to bottom, #000 62%, transparent 97%);
 }
+
+/* Plain cover over the prerendered page until the first-visit loading screen mounts
+   (index.html sets data-intro; Preloader removes it). Self-removes after 6s if JS never runs. */
+html[data-intro] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 115;
+  background: rgb(var(--bg));
+  animation: intro-cover-off 0s linear 6s forwards;
+}
+@keyframes intro-cover-off {
+  to {
+    visibility: hidden;
+  }
+}

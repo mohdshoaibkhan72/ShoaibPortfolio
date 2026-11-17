@@ -1,41 +1,12 @@
 import { Link } from "react-router-dom";
 import { FiArrowUpRight } from "react-icons/fi";
-import { SEOHead } from "../components/SEOHead";
 import PageHeader from "../components/ui/PageHeader";
 import { Reveal } from "../components/ui/Reveal";
 import { education, experience, profile } from "../data/site";
 
-const expStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  name: "Work Experience — Mohammad Shoaib Khan",
-  url: "https://mohammadshoaibkhan.com/experience",
-  mainEntity: {
-    "@type": "Person",
-    name: "Mohammad Shoaib Khan",
-    hasOccupation: [
-      {
-        "@type": "Occupation",
-        name: "Senior App & Full-Stack Developer",
-        occupationLocation: { "@type": "Country", name: "India" },
-        description: "Leading mobile-first fintech development at Loanyfy using React Native and MERN stack",
-        estimatedSalary: { "@type": "MonetaryAmountDistribution", currency: "INR" },
-      },
-    ],
-  },
-};
-
 export default function ExperiencePage() {
   return (
     <>
-      <SEOHead
-        title="Work Experience | Senior Developer at Loanyfy — Mohammad Shoaib Khan"
-        description="Full-time at Loanyfy (fintech) as Senior App & Full-Stack Developer since January 2024. 3+ years freelance delivering 16+ production apps. React Native, MERN Stack expert."
-        keywords="Mohammad Shoaib Khan experience, Loanyfy developer, React Native developer experience, freelance developer portfolio, full-stack developer career"
-        canonicalPath="/experience"
-        structuredData={expStructuredData}
-      />
-
       <PageHeader
         eyebrow="(Experience)"
         title={[`${profile.careerYears}+ years of`, <span key="s"><span className="serif-em">shipping</span> software</span>]}

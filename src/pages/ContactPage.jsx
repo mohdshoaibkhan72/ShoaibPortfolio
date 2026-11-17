@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiArrowUpRight, FiCheck, FiLoader, FiPlus, FiSend } from "react-icons/fi";
-import { SEOHead } from "../components/SEOHead";
 import PageHeader from "../components/ui/PageHeader";
 import RollText from "../components/ui/RollText";
 import { Reveal } from "../components/ui/Reveal";
@@ -12,27 +11,6 @@ import { EASE, cn } from "../lib/utils";
 
 const WEB3FORMS_KEY = "a723f59c-d1be-44a1-b942-a27a15c862c6";
 const PROJECT_TYPES = ["Mobile app", "Web app", "Website", "E-commerce", "SaaS / CRM", "Something else"];
-
-const contactStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "ContactPage",
-  name: "Contact Mohammad Shoaib Khan",
-  url: "https://mohammadshoaibkhan.com/contact",
-  description: "Hire Mohammad Shoaib Khan for mobile app development, full-stack web development, SaaS or e-commerce solutions.",
-  mainEntity: {
-    "@type": "Person",
-    name: "Mohammad Shoaib Khan",
-    email: "mohdshoaibkhan7211@gmail.com",
-    telephone: "+917310249234",
-    url: "https://mohammadshoaibkhan.com",
-    sameAs: ["https://www.linkedin.com/in/shoaibkhan72/", "https://www.instagram.com/shoaib.devs/", "https://github.com/mohdshoaibkhan72"],
-  },
-  speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".contact-intro"] },
-  about: {
-    "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
-  },
-};
 
 const inputClass =
   "w-full min-w-0 border-b border-fg/15 bg-transparent pb-4 pt-2 text-xl tracking-tight outline-none transition-colors placeholder:text-fg/25 focus:border-fg md:text-2xl";
@@ -112,14 +90,6 @@ export default function ContactPage() {
 
   return (
     <>
-      <SEOHead
-        title="Hire Mohammad Shoaib Khan | Contact a Full-Stack & Mobile App Developer"
-        description="Get in touch with Mohammad Shoaib Khan for React Native mobile apps, MERN Stack development, SaaS, e-commerce platforms, or freelance projects. Based in India, working globally."
-        keywords="hire React Native developer, hire full-stack developer India, contact Mohammad Shoaib Khan, freelance mobile app developer, MERN Stack freelancer"
-        canonicalPath="/contact"
-        structuredData={contactStructuredData}
-      />
-
       <PageHeader
         eyebrow="(Contact)"
         title={["Let’s build", <span key="g">something <span className="serif-em">great</span></span>]}

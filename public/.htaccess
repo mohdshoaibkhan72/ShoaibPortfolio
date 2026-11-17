@@ -1,0 +1,73 @@
+# mohammadshoaibkhan.com — Hostinger (LiteSpeed/Apache)
+# Serves the prerendered pages written by `npm run build` (scripts/prerender.mjs):
+#   /about → /_pages/about.html,  /projects/shopit → /_pages/projects/shopit.html
+# Upload the WHOLE dist/ folder (including this hidden file) to public_html.
+
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. One canonical host: www → bare domain (HTTP→HTTPS is already forced by Hostinger)
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+  # 2. /index.html → /   (avoid a duplicate home page)
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^ / [R=301,L]
+
+  # 3. Strip trailing slashes: /about/ → /about   (canonical URLs have none)
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+  # 4. The prerender folder is internal — requesting it directly is a 404
+  RewriteCond %{THE_REQUEST} \s/+_pages[/\s?] [NC]
+  RewriteRule ^ - [R=404,L]
+
+  # 5. Clean URLs → prerendered HTML. Unknown project ids find no file and get the 404 page.
+  #    Adding a new top-level page? Add it to this list and to STATIC_PATHS in src/seo/meta.js.
+  RewriteRule ^(about|projects|experience|contact)$ _pages/$1.html [L]
+  RewriteRule ^projects/([a-z0-9-]+)$ _pages/projects/$1.html [L]
+</IfModule>
+
+# Correct types for files Apache doesn't always know
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
+  AddType image/x-icon .ico
+  AddType text/plain .txt
+  AddCharset utf-8 .html .css .js .txt .xml .webmanifest .svg
+</IfModule>
+
+# Compression (LiteSpeed also compresses on its own)
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/javascript application/json application/manifest+json image/svg+xml
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Hashed build assets never change → cache for a year
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # Images, fonts, icons → a month
+  <FilesMatch "\.(webp|png|jpe?g|gif|svg|ico|avif|woff2?)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  # Pages and SEO files → always revalidate so updates show up immediately
+  <FilesMatch "\.(html|xml|txt|webmanifest)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.pdf$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>

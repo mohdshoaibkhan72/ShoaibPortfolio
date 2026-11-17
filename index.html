@@ -1,206 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
       (function () {
+        var d = document.documentElement;
         try {
           var t = localStorage.getItem("theme");
           if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-          document.documentElement.setAttribute("data-theme", t);
-        } catch (e) { document.documentElement.setAttribute("data-theme", "dark"); }
+          d.setAttribute("data-theme", t);
+        } catch (e) { d.setAttribute("data-theme", "dark"); }
+        // First visit this session → the loading screen will play. Cover the prerendered page
+        // until it appears, so it doesn't flash first (mirrors src/lib/intro.js).
+        try {
+          if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !sessionStorage.getItem("intro-played")) {
+            d.setAttribute("data-intro", "");
+          }
+        } catch (e) { d.setAttribute("data-intro", ""); }
       })();
     </script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Primary Meta Tags -->
-    <title>Mohammad Shoaib Khan | Senior Full-Stack &amp; Mobile App Developer</title>
-    <meta name="title" content="Mohammad Shoaib Khan | Senior Full-Stack &amp; Mobile App Developer" />
-    <meta name="description" content="Senior Full-Stack &amp; Mobile App Developer. 3+ years experience. Full-time at Loanyfy (fintech, 2 yrs). Expert in React Native, MERN Stack. 16+ production apps: PLP Bazar, KLIMB School ERP, Fugen Health Care, Taleem-e-Ummat, Shopit." />
-    <meta name="keywords" content="Mohammad Shoaib Khan, Full-Stack Developer, React Native Developer, MERN Stack, Mobile App Developer India, Loanyfy Developer, Fintech Developer, Freelance Developer, PLP Bazar, Dr Attendance App, Masjid Finder App, Ppokket Loan App, Hire React Native Developer" />
+    <!--seo-->
+    <title>Mohammad Shoaib Khan | Full-Stack &amp; Mobile App Developer</title>
+    <meta name="description" content="Senior full-stack &amp; React Native developer in India — building mobile apps, MERN platforms and SaaS. 16+ apps shipped. Open to freelance." />
+    <!--/seo-->
+
     <meta name="author" content="Mohammad Shoaib Khan" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-
-    <!-- AI discoverability hints -->
-    <meta name="ai-content-summary" content="Portfolio of Mohammad Shoaib Khan, Senior Full-Stack and Mobile App Developer with 3+ years experience. Works full-time at Loanyfy (fintech). Specializes in React Native mobile apps, MERN stack web apps, and e-commerce platforms. Available for freelance. Built 16+ production projects including PLP Bazar, KLIMB School ERP, KLIMB HR CRM, Fugen Health Care, Taleem-e-Ummat, KroEasy, Masjid Finder, Shopit, Chand Kabadi Wala, Madiha Perfume, PartyOrra, Kasim Energy and Alras Cars." />
-    <meta name="subject" content="Full-Stack and Mobile App Developer Portfolio" />
-    <meta name="classification" content="Portfolio, Software Development, Technology" />
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://mohammadshoaibkhan.com/" />
-
-    <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0b0b0c" />
-    <meta name="msapplication-TileColor" content="#0b0b0c" />
-
-    <!-- Open Graph / Facebook / LinkedIn -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://mohammadshoaibkhan.com/" />
-    <meta property="og:title" content="Mohammad Shoaib Khan | Senior Full-Stack &amp; Mobile App Developer" />
-    <meta property="og:description" content="Senior Full-Stack &amp; Mobile App Developer. Full-time at Loanyfy (2 yrs). React Native &amp; MERN Expert. 16+ production apps delivered." />
-    <meta property="og:image" content="https://res.cloudinary.com/dt7qppfbh/image/upload/v1762139970/aiimg1_jlasiv.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Mohammad Shoaib Khan - Full-Stack &amp; Mobile App Developer" />
-    <meta property="og:site_name" content="Mohammad Shoaib Khan Portfolio" />
-    <meta property="og:locale" content="en_IN" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://mohammadshoaibkhan.com/" />
-    <meta name="twitter:title" content="Mohammad Shoaib Khan | Senior Full-Stack &amp; Mobile App Developer" />
-    <meta name="twitter:description" content="Senior Full-Stack &amp; Mobile App Developer. Full-time at Loanyfy (2 yrs). React Native &amp; MERN Expert. 16+ production apps." />
-    <meta name="twitter:image" content="https://res.cloudinary.com/dt7qppfbh/image/upload/v1762139970/aiimg1_jlasiv.png" />
-
-    <!-- Additional SEO -->
-    <meta name="language" content="English" />
-    <meta name="geo.region" content="IN" />
-    <meta name="geo.placename" content="India" />
-    <meta name="rating" content="general" />
-    <meta name="revisit-after" content="7 days" />
-
-    <!-- PWA -->
-    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="apple-mobile-web-app-title" content="Shoaib Khan" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Shoaib Khan Dev" />
 
-    <!-- Preconnect -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" />
-    <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-
-    <!-- Hero portrait (largest image on first load) -->
-    <link rel="preload" as="image" href="/img/shoaib-hero.webp" type="image/webp" fetchpriority="high" />
-
-    <!-- Sitemap reference -->
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-
-    <!-- Structured Data — Person (AI-optimized) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Person",
-          "@id": "https://mohammadshoaibkhan.com/#person",
-          "name": "Mohammad Shoaib Khan",
-          "alternateName": ["Shoaib Khan", "Mohammad Khan", "Mohd Shoaib Khan"],
-          "url": "https://mohammadshoaibkhan.com",
-          "image": {
-            "@type": "ImageObject",
-            "url": "https://res.cloudinary.com/dt7qppfbh/image/upload/v1762139970/aiimg1_jlasiv.png",
-            "width": 800,
-            "height": 800
-          },
-          "sameAs": [
-            "https://github.com/mohdshoaibkhan72",
-            "https://www.linkedin.com/in/shoaibkhan72/",
-            "https://www.instagram.com/shoaib.devs/"
-          ],
-          "jobTitle": "Senior Full-Stack & Mobile App Developer",
-          "worksFor": {
-            "@type": "Organization",
-            "name": "Loanyfy",
-            "url": "https://www.loanyfy.com",
-            "description": "Fintech loan platform"
-          },
-          "email": "mohdshoaibkhan7211@gmail.com",
-          "telephone": "+917310249234",
-          "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "IN"
-          },
-          "nationality": "Indian",
-          "description": "Senior Full-Stack & Mobile App Developer with 3+ years of experience. Currently working full-time at Loanyfy (fintech) for 2 years as Senior Developer. Expert in React Native, MERN Stack (MongoDB, Express, React, Node.js), AWS, and payment integrations. Delivered 16+ production projects including PLP Bazar marketplace app, Dr Attendance healthcare app, Masjid Finder GPS app, Ppokket Personal Loan app, Shopit e-commerce app, Chand Kabadi Wala scrap pickup app, Kasim Energy corporate website, and more.",
-          "knowsAbout": [
-            "React Native",
-            "React.js",
-            "Node.js",
-            "Express.js",
-            "MongoDB",
-            "Next.js",
-            "JavaScript",
-            "TypeScript",
-            "MERN Stack",
-            "Full-Stack Development",
-            "Mobile App Development",
-            "iOS App Development",
-            "Android App Development",
-            "Fintech Development",
-            "E-Commerce Development",
-            "AWS S3",
-            "AWS EC2",
-            "Firebase",
-            "Razorpay Integration",
-            "JWT Authentication",
-            "REST API Development",
-            "Tailwind CSS",
-            "GSAP Animations",
-            "Framer Motion",
-            "Expo",
-            "KYC Integration",
-            "Cloudinary",
-            "WhatsApp Business API",
-            "Redux",
-            "Chart.js",
-            "Docker",
-            "Vercel Deployment",
-            "Render Deployment"
-          ],
-          "hasOccupation": [
-            {
-              "@type": "Occupation",
-              "name": "Senior App & Full-Stack Developer",
-              "occupationLocation": { "@type": "Country", "name": "India" },
-              "description": "Full-time role at Loanyfy (Fly Digi Loanyfytech and Solution Pvt. Ltd.) since January 2024. Building React Native mobile apps, MERN backends, and deploying on AWS.",
-              "startDate": "2024-01"
-            },
-            {
-              "@type": "Occupation",
-              "name": "Freelance App & Web Developer",
-              "occupationLocation": { "@type": "Country", "name": "India" },
-              "description": "Independent freelance developer since 2023. Built 16+ production projects for clients in India and Middle East.",
-              "startDate": "2023-01"
-            }
-          ]
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://mohammadshoaibkhan.com/#website",
-          "url": "https://mohammadshoaibkhan.com",
-          "name": "Mohammad Shoaib Khan — Developer Portfolio",
-          "description": "Portfolio of Mohammad Shoaib Khan, Senior Full-Stack & Mobile App Developer. React Native, MERN Stack, Fintech, E-Commerce.",
-          "author": { "@id": "https://mohammadshoaibkhan.com/#person" },
-          "inLanguage": "en",
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": {
-              "@type": "EntryPoint",
-              "urlTemplate": "https://mohammadshoaibkhan.com/projects?filter={search_term_string}"
-            },
-            "query-input": "required name=search_term_string"
-          }
-        },
-        {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://mohammadshoaibkhan.com/" },
-            { "@type": "ListItem", "position": 2, "name": "About", "item": "https://mohammadshoaibkhan.com/about" },
-            { "@type": "ListItem", "position": 3, "name": "Projects", "item": "https://mohammadshoaibkhan.com/projects" },
-            { "@type": "ListItem", "position": 4, "name": "Experience", "item": "https://mohammadshoaibkhan.com/experience" },
-            { "@type": "ListItem", "position": 5, "name": "Contact", "item": "https://mohammadshoaibkhan.com/contact" }
-          ]
-        }
-      ]
-    }
-    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><!--app-html--></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

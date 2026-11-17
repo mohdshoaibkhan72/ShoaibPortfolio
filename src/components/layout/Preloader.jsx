@@ -11,12 +11,16 @@ const MAX_WAIT_MS = 4500; // never wait longer than this for assets
 const PANELS = 6;
 const ROWS = 3; // name is sliced into ROWS x cols pieces
 
-/** Resolves when fonts and the hero portrait are ready (or after MAX_WAIT_MS). */
+/** Resolves when fonts (and, on the home page, the hero portrait) are ready — or after MAX_WAIT_MS. */
 function assetsReady() {
   const fonts = document.fonts?.ready ?? Promise.resolve();
-  const img = new Image();
-  img.src = heroPortrait.src;
-  const portrait = (img.decode ? img.decode() : new Promise((r) => (img.onload = r))).catch(() => {});
+  // Only the home page shows the portrait; elsewhere don't make visitors wait for it.
+  let portrait = Promise.resolve();
+  if (window.location.pathname === "/") {
+    const img = new Image();
+    img.src = heroPortrait.src;
+    portrait = (img.decode ? img.decode() : new Promise((r) => (img.onload = r))).catch(() => {});
+  }
   const cap = new Promise((resolve) => setTimeout(resolve, MAX_WAIT_MS));
   return Promise.race([Promise.all([fonts, portrait]), cap]);
 }
@@ -153,6 +157,8 @@ export default function Preloader({ onFinish }) {
 
   useEffect(() => {
     let cancelled = false;
+    // The loader is on screen now, so drop the plain cover index.html shows until JS runs.
+    document.documentElement.removeAttribute("data-intro");
     window.scrollTo(0, 0);
     setScrollLocked(true);
 

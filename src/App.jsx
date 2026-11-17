@@ -1,5 +1,5 @@
 import { Suspense, lazy, useCallback, useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { ThemeProvider } from "./context/ThemeContext";
 import { IntroContext } from "./context/IntroContext";
@@ -8,6 +8,7 @@ import Footer from "./components/layout/Footer";
 import Cursor from "./components/layout/Cursor";
 import Curtain from "./components/layout/Curtain";
 import Preloader from "./components/layout/Preloader";
+import { SEOHead } from "./components/SEOHead";
 import { WhatsAppFab } from "./components/ui/WhatsApp";
 import HomePage from "./pages/HomePage";
 import { initSmoothScroll, scrollToTarget } from "./lib/smoothScroll";
@@ -58,6 +59,7 @@ function AnimatedRoutes() {
   );
 }
 
+/** The whole site. The router is supplied by the caller: BrowserRouter in main.jsx, StaticRouter when prerendering. */
 export default function App() {
   // First visit in a session: show the loading screen, and hold the hero animations until it lifts.
   // Lifting happens in two steps (panels first, hero a moment later) so no single frame does all the work.
@@ -95,20 +97,19 @@ export default function App() {
     <ThemeProvider>
       <IntroContext.Provider value={introDone}>
         <MotionConfig reducedMotion="user">
-          <BrowserRouter>
-            <a
-              href="#main"
-              className="sr-only z-[200] rounded-full bg-accent px-4 py-2 text-accent-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
-            >
-              Skip to content
-            </a>
-            <Navbar />
-            <AnimatedRoutes />
-            <WhatsAppFab />
-            <Cursor />
-            <AnimatePresence>{loaderVisible && <Preloader key="preloader" onFinish={finishIntro} />}</AnimatePresence>
-            <div className="grain" aria-hidden="true" />
-          </BrowserRouter>
+          <a
+            href="#main"
+            className="sr-only z-[200] rounded-full bg-accent px-4 py-2 text-accent-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+          >
+            Skip to content
+          </a>
+          <SEOHead />
+          <Navbar />
+          <AnimatedRoutes />
+          <WhatsAppFab />
+          <Cursor />
+          <AnimatePresence>{loaderVisible && <Preloader key="preloader" onFinish={finishIntro} />}</AnimatePresence>
+          <div className="grain" aria-hidden="true" />
         </MotionConfig>
       </IntroContext.Provider>
     </ThemeProvider>

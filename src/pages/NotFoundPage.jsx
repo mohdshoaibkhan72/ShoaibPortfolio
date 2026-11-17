@@ -1,11 +1,9 @@
-import { SEOHead } from "../components/SEOHead";
 import { Button } from "../components/ui/Button";
 import { MaskLines, Reveal } from "../components/ui/Reveal";
 
 export default function NotFoundPage() {
   return (
     <>
-      <SEOHead title="Page not found | Mohammad Shoaib Khan" canonicalPath="/404" />
       <section className="container-x flex min-h-[100svh] flex-col justify-center pb-16 pt-32">
         <p className="eyebrow">(Error 404)</p>
         <MaskLines

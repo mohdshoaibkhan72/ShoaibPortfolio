@@ -2,28 +2,11 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
 import { FiArrowUpRight, FiGrid, FiList } from "react-icons/fi";
-import { SEOHead } from "../components/SEOHead";
 import PageHeader from "../components/ui/PageHeader";
 import ProjectCard from "../components/project/ProjectCard";
 import ProjectVisual from "../components/project/ProjectVisual";
 import { CATEGORIES, projectChips, projectsData } from "../data/projects";
 import { EASE, cn, useMediaQuery } from "../lib/utils";
-
-const projectsStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: "Mohammad Shoaib Khan — Projects Portfolio",
-  description: "16+ production projects including mobile apps, SaaS products, e-commerce platforms and business websites",
-  url: "https://mohammadshoaibkhan.com/projects",
-  numberOfItems: projectsData.length,
-  itemListElement: projectsData.map((p, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    name: p.title,
-    description: p.tagline,
-    url: `https://mohammadshoaibkhan.com/projects/${p.id}`,
-  })),
-};
 
 const FILTERS = [
   { key: "all", label: "All", count: projectsData.length },
@@ -86,14 +69,6 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <SEOHead
-        title="Projects | Mobile Apps, SaaS, E-Commerce & Web — Mohammad Shoaib Khan"
-        description="16+ production projects: React Native apps (PLP Bazar, Fugen Health Care, Taleem-e-Ummat), SaaS products (KLIMB School ERP, HR CRM), e-commerce platforms and business websites built with the MERN stack."
-        keywords="React Native projects, MERN Stack projects, mobile app developer portfolio, SaaS development, e-commerce development, full-stack projects India"
-        canonicalPath="/projects"
-        structuredData={projectsStructuredData}
-      />
-
       <PageHeader
         eyebrow="(Work)"
         title={[

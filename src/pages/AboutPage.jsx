@@ -1,5 +1,4 @@
 import { FiDownload } from "react-icons/fi";
-import { SEOHead } from "../components/SEOHead";
 import PageHeader from "../components/ui/PageHeader";
 import SectionHeader from "../components/ui/SectionHeader";
 import { Button } from "../components/ui/Button";
@@ -8,37 +7,9 @@ import Services from "../components/home/Services";
 import Testimonials from "../components/home/Testimonials";
 import { profile, quickFacts, toolbox, workProcess } from "../data/site";
 
-const aboutStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  name: "About Mohammad Shoaib Khan",
-  url: "https://mohammadshoaibkhan.com/about",
-  mainEntity: {
-    "@type": "Person",
-    name: "Mohammad Shoaib Khan",
-    jobTitle: "Senior Full-Stack & Mobile App Developer",
-    description:
-      "Senior Full-Stack & Mobile App Developer with 3+ years experience. Full-time at Loanyfy (fintech). Expert in React Native, MERN Stack. 16+ production apps delivered including PLP Bazar, KLIMB School ERP, Fugen Health Care and Taleem-e-Ummat.",
-    url: "https://mohammadshoaibkhan.com",
-    email: "mohdshoaibkhan7211@gmail.com",
-    telephone: "+917310249234",
-    address: { "@type": "PostalAddress", addressCountry: "IN" },
-    knowsAbout: ["React Native", "React.js", "Node.js", "MongoDB", "Express.js", "AWS", "Fintech Development", "Mobile App Development", "SaaS"],
-    sameAs: ["https://www.linkedin.com/in/shoaibkhan72/", "https://www.instagram.com/shoaib.devs/", "https://github.com/mohdshoaibkhan72"],
-  },
-};
-
 export default function AboutPage() {
   return (
     <>
-      <SEOHead
-        title="About Mohammad Shoaib Khan | Senior Full-Stack & React Native Developer"
-        description="Learn about Mohammad Shoaib Khan — Senior Full-Stack & Mobile App Developer. 3+ years experience. Full-time at Loanyfy. Expert in React Native, MERN Stack. Available for freelance."
-        keywords="About Mohammad Shoaib Khan, React Native developer, MERN Stack expert, full-stack developer India, mobile app developer, freelance developer"
-        canonicalPath="/about"
-        structuredData={aboutStructuredData}
-      />
-
       <PageHeader
         eyebrow="(About)"
         title={["I turn ideas into", <span key="a">apps people <span className="serif-em">use</span></span>]}

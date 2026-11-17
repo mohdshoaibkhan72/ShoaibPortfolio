@@ -1,0 +1,146 @@
+<!doctype html>
+<!--
+  Social-card / icon template rendered by scripts/og/generate.mjs (headless Edge or Chrome).
+  The card to draw is passed as JSON in the URL hash. Paths to images are relative to /public.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=block"
+    />
+    <style>
+      :root {
+        --bg: #0b0b0c;
+        --fg: #ecebe6;
+        --muted: #92918b;
+        --accent: #c8ff3e;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { width: 1200px; height: 630px; overflow: hidden; background: transparent; }
+      body { font-family: "Geist", system-ui, sans-serif; color: var(--fg); -webkit-font-smoothing: antialiased; }
+
+      .card { position: relative; width: 1200px; height: 630px; overflow: hidden; background: var(--bg); }
+      .card::after { /* soft vignette + lime glow */
+        content: ""; position: absolute; inset: 0; pointer-events: none;
+        background:
+          radial-gradient(60% 70% at 85% 30%, rgba(200, 255, 62, 0.10), transparent 70%),
+          radial-gradient(80% 80% at 0% 100%, rgba(255, 255, 255, 0.04), transparent 60%);
+      }
+      .left { position: absolute; z-index: 2; left: 72px; top: 64px; bottom: 60px; width: 640px; display: flex; flex-direction: column; }
+      .eyebrow { font-family: "Geist Mono", monospace; font-size: 19px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 12px; }
+      .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 18px rgba(200, 255, 62, 0.7); }
+      .name { font-family: "Anton", sans-serif; text-transform: uppercase; line-height: 0.92; letter-spacing: 0.005em; margin-top: 30px; }
+      .serif { font-family: "Instrument Serif", serif; font-style: italic; color: var(--accent); }
+      .tagline { font-size: 27px; line-height: 1.3; color: #c9c8c2; margin-top: 22px; max-width: 600px; letter-spacing: -0.01em; }
+      .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+      .chip { font-family: "Geist Mono", monospace; font-size: 17px; padding: 9px 16px; border-radius: 999px; border: 1px solid rgba(236, 235, 230, 0.16); color: #d6d5cf; background: rgba(255, 255, 255, 0.03); }
+      .footer { margin-top: auto; display: flex; align-items: center; gap: 16px; font-size: 19px; line-height: 1.3; color: var(--muted); }
+      .footer b { display: block; color: var(--fg); font-weight: 600; font-size: 21px; }
+      .mark { width: 44px; height: 44px; border-radius: 11px; background: #18181a; border: 1px solid rgba(236,235,230,.12); display: grid; place-items: center; font-weight: 700; font-size: 19px; letter-spacing: -1px; position: relative; color: var(--fg); }
+      .mark i { position: absolute; right: 7px; bottom: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+      /* Default (person) card */
+      .portrait { position: absolute; z-index: 1; right: -30px; bottom: -40px; height: 690px; filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5)); }
+      .stats { display: flex; gap: 44px; margin-top: 34px; }
+      .stat b { display: block; font-family: "Anton", sans-serif; font-size: 52px; line-height: 1; font-weight: 400; }
+      .stat span { display: block; font-size: 17px; color: var(--muted); margin-top: 8px; line-height: 1.25; }
+      .giant { position: absolute; z-index: 0; right: -40px; top: -60px; font-family: "Anton", sans-serif; font-size: 560px; line-height: 1; color: rgba(255, 255, 255, 0.025); letter-spacing: -0.02em; }
+
+      /* Project card visual area */
+      .visual { position: absolute; z-index: 1; right: 56px; top: 56px; width: 470px; height: 518px; border-radius: 28px; overflow: hidden; display: grid; place-items: center; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45); }
+      .visual.image { width: auto; height: auto; top: 50%; transform: translateY(-50%); }
+      .visual.image img { display: block; max-width: 520px; max-height: 518px; }
+      .phones { display: flex; gap: 14px; align-items: center; justify-content: center; }
+      .phone { width: 128px; aspect-ratio: 9 / 19.5; border-radius: 26px; padding: 6px; background: #111; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35); overflow: hidden; }
+      .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 20px; display: block; }
+      .phone.mid { width: 156px; }
+      .browser { width: 92%; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35); }
+      .browser .bar { height: 30px; background: #ececec; display: flex; align-items: center; gap: 7px; padding: 0 12px; }
+      .browser .bar i { width: 10px; height: 10px; border-radius: 50%; background: #cfcfcf; }
+      .browser .bar span { margin-left: 10px; font: 500 12px "Geist Mono", monospace; color: #777; background: #fff; padding: 3px 10px; border-radius: 6px; }
+      .browser img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+      .browser + .browser { margin-top: -120px; margin-left: 80px; width: 80%; }
+      .stack { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
+
+      /* Icons */
+      .icon { position: relative; display: grid; place-items: center; }
+      .icon img { display: block; }
+    </style>
+  </head>
+  <body>
+    <div id="out"></div>
+    <script>
+      const spec = JSON.parse(decodeURIComponent(location.hash.slice(1) || "{}"));
+      const pub = (src) => "../../public" + src;
+      const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+      const out = document.getElementById("out");
+      const footer = `<div class="footer"><span class="mark">SK<i></i></span><span><b>Mohammad Shoaib Khan</b>mohammadshoaibkhan.com</span></div>`;
+
+      if (spec.kind === "image") {
+        // A ready-made share image (public/og.png), scaled to fill 1200×630.
+        out.innerHTML = `<img src="${pub(spec.src)}" alt="" style="display:block;width:1200px;height:630px;object-fit:cover;object-position:center top" />`;
+      } else if (spec.kind === "icon") {
+        // App icons: square, the favicon artwork scaled to `scale` of the canvas on a solid background.
+        document.documentElement.style.width = document.body.style.width = spec.size + "px";
+        document.documentElement.style.height = document.body.style.height = spec.size + "px";
+        const inner = Math.round(spec.size * spec.scale);
+        out.innerHTML = `<div class="icon" style="width:${spec.size}px;height:${spec.size}px;background:${spec.bg || "transparent"}">
+          <img src="${pub("/favicon.svg")}" width="${inner}" height="${inner}" alt="" /></div>`;
+      } else if (spec.kind === "default") {
+        out.innerHTML = `<div class="card">
+          <div class="giant">SK</div>
+          <img class="portrait" src="${pub("/img/shoaib-hero.webp")}" alt="" />
+          <div class="left">
+            <div class="eyebrow"><span class="dot"></span>Available for freelance</div>
+            <div class="name" style="font-size:112px">Mohammad<br/>Shoaib Khan</div>
+            <div class="serif" style="font-size:50px;margin-top:14px">Full-stack &amp; mobile developer</div>
+            <div class="stats">
+              <div class="stat"><b>${esc(spec.years)}+</b><span>years building<br/>production software</span></div>
+              <div class="stat"><b>16+</b><span>apps &amp; platforms<br/>shipped</span></div>
+              <div class="stat"><b>RN · MERN</b><span>React Native, SaaS<br/>&amp; fintech</span></div>
+            </div>
+            ${footer}
+          </div>
+        </div>`;
+      } else {
+        // Project case-study card
+        const p = spec;
+        let visual = "";
+        const bg = p.cover.bg ? `linear-gradient(180deg, ${p.cover.bg[0]}, ${p.cover.bg[1]})` : `linear-gradient(160deg, color-mix(in oklab, ${p.color} 30%, #f4f2ec), color-mix(in oklab, ${p.color} 55%, #1a1a1a))`;
+        if (p.cover.type === "image") {
+          visual = `<div class="visual image" style="background:${bg}"><img src="${pub(p.cover.src)}" alt="" /></div>`;
+        } else if (p.cover.type === "phones") {
+          const imgs = p.cover.images.slice(0, 3);
+          visual = `<div class="visual" style="background:${bg}"><div class="phones">${imgs
+            .map((src, i) => `<div class="phone ${imgs.length === 3 && i === 1 ? "mid" : ""}"><img src="${pub(src)}" alt="" /></div>`)
+            .join("")}</div></div>`;
+        } else {
+          const imgs = p.cover.images.slice(0, 2);
+          visual = `<div class="visual" style="background:${bg}"><div class="stack">${imgs
+            .map((src) => `<div class="browser"><div class="bar"><i></i><i></i><i></i><span>${esc(p.cover.url || "")}</span></div><img src="${pub(src)}" alt="" /></div>`)
+            .join("")}</div></div>`;
+        }
+        const nameSize = p.name.length > 16 ? 76 : p.name.length > 11 ? 92 : 112;
+        out.innerHTML = `<div class="card">
+          ${visual}
+          <div class="left" style="width:560px">
+            <div class="eyebrow"><span class="dot" style="background:${p.color};box-shadow:0 0 18px ${p.color}"></span>Case study · ${esc(p.category)}</div>
+            <div class="name" style="font-size:${nameSize}px">${esc(p.name)}</div>
+            <div class="tagline">${esc(p.tagline)}</div>
+            <div class="chips">${p.chips.slice(0, 4).map((c) => `<span class="chip">${esc(c)}</span>`).join("")}</div>
+            ${footer}
+          </div>
+        </div>`;
+      }
+
+      // Signal readiness once fonts and every image have decoded.
+      window.cardReady = document.fonts.ready
+        .then(() => Promise.all([...document.images].map((img) => img.decode().catch(() => {}))))
+        .then(() => true);
+    </script>
+  </body>
+</html>

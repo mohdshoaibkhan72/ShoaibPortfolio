@@ -25,6 +25,8 @@ export default function Lightbox({ items, index, onChange, onClose }) {
     };
   }, [open, index, items.length, onChange, onClose]);
 
+  if (typeof document === "undefined") return null; // prerendering — it always starts closed
+
   return createPortal(
     <AnimatePresence>
       {open && (
