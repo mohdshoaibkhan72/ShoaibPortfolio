@@ -4,8 +4,9 @@ import SectionHeader from "../components/ui/SectionHeader";
 import { Button } from "../components/ui/Button";
 import { Reveal } from "../components/ui/Reveal";
 import Services from "../components/home/Services";
+import Process from "../components/home/Process";
 import Testimonials from "../components/home/Testimonials";
-import { profile, quickFacts, toolbox, workProcess } from "../data/site";
+import { profile, quickFacts, toolbox } from "../data/site";
 
 export default function AboutPage() {
   return (
@@ -22,7 +23,7 @@ export default function AboutPage() {
           <div className="overflow-hidden rounded-[24px] md:rounded-[32px]">
             <img
               src={profile.portrait}
-              alt="Shoaib Khan working at his desk"
+              alt="Mohammad Shoaib Khan, full stack and mobile app developer, working at his desk"
               width={864}
               height={741}
               className="aspect-[4/5] w-full object-cover object-[76%_50%]"
@@ -36,8 +37,8 @@ export default function AboutPage() {
 
         <div className="flex flex-col justify-end lg:col-span-7">
           <Reveal as="p" className="text-[clamp(1.4rem,2.4vw,2.2rem)] leading-[1.22] tracking-[-0.025em] text-pretty">
-            I&apos;m Mohammad Shoaib Khan — a full-stack and mobile app developer with {profile.careerYears}+ years of
-            hands-on experience shipping production software.
+            I&apos;m Mohammad Shoaib Khan — a full stack web and mobile app developer from India with {profile.careerYears}+
+            years of hands-on experience shipping production software.
           </Reveal>
           <Reveal className="mt-8 space-y-5 text-lg leading-relaxed text-muted text-pretty" delay={0.1}>
             <p>
@@ -83,21 +84,7 @@ export default function AboutPage() {
 
       <Services index="01" />
 
-      {/* Process */}
-      <section className="container-x py-28 md:py-40">
-        <SectionHeader index="02" label="Process" title={[<span key="w">How I <span className="serif-em">work</span></span>]} />
-        <ol className="grid gap-px overflow-hidden rounded-[24px] border border-fg/10 bg-fg/10 sm:grid-cols-2 lg:grid-cols-4">
-          {workProcess.map((step, i) => (
-            <Reveal as="li" key={step.title} delay={i * 0.07} className="flex min-h-[11rem] flex-col justify-between gap-6 bg-bg p-6 sm:min-h-[16rem] md:p-9">
-              <span className="font-mono text-sm text-muted">0{i + 1}</span>
-              <div>
-                <h3 className="text-2xl font-medium tracking-[-0.03em] md:text-3xl">{step.title}</h3>
-                <p className="mt-3 text-muted text-pretty">{step.desc}</p>
-              </div>
-            </Reveal>
-          ))}
-        </ol>
-      </section>
+      <Process index="02" />
 
       {/* Toolbox */}
       <section className="container-x pb-28 md:pb-40">

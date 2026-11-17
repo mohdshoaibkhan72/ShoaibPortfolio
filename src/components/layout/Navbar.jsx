@@ -61,7 +61,7 @@ export default function Navbar() {
               <span className="grid h-9 w-9 place-items-center rounded-full bg-fg text-[11px] font-semibold tracking-tight text-bg">
                 SK
               </span>
-              <span className="hidden text-[15px] font-medium tracking-tight sm:block">
+              <span className="hidden text-[15px] font-medium tracking-tight sm:block md:hidden lg:block">
                 <RollText>{profile.shortName}</RollText>
               </span>
             </Link>

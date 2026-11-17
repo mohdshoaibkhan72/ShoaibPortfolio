@@ -101,8 +101,8 @@ export default function ContactPage() {
         {/* Form (min-w-0 stops the inputs' intrinsic width from overflowing narrow screens) */}
         <Reveal className="min-w-0 lg:col-span-7 lg:row-span-2 lg:row-start-1">
           <p className="contact-intro mb-12 max-w-xl text-lg leading-snug text-muted text-pretty">
-            Have a project in mind? Tell me a little about it — I usually reply within 24 hours with questions, a rough plan
-            and an estimate.
+            Looking for a freelance website or app developer? Tell me a little about your project — I usually reply within 24
+            hours with questions, a rough plan and an estimate.
           </p>
 
           <form onSubmit={submit} className="flex flex-col gap-10">

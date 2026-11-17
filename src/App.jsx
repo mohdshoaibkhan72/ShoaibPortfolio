@@ -23,6 +23,8 @@ const loaders = {
   about: () => import("./pages/AboutPage"),
   projects: () => import("./pages/ProjectsPage"),
   project: () => import("./pages/ProjectDetailPage"),
+  services: () => import("./pages/ServicesPage"),
+  service: () => import("./pages/ServicePage"),
   experience: () => import("./pages/ExperiencePage"),
   contact: () => import("./pages/ContactPage"),
   notFound: () => import("./pages/NotFoundPage"),
@@ -30,6 +32,8 @@ const loaders = {
 const AboutPage = lazy(loaders.about);
 const ProjectsPage = lazy(loaders.projects);
 const ProjectDetailPage = lazy(loaders.project);
+const ServicesPage = lazy(loaders.services);
+const ServicePage = lazy(loaders.service);
 const ExperiencePage = lazy(loaders.experience);
 const ContactPage = lazy(loaders.contact);
 const NotFoundPage = lazy(loaders.notFound);
@@ -47,6 +51,8 @@ function AnimatedRoutes() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/projects/:id" element={<ProjectDetailPage />} />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/services/:slug" element={<ServicePage />} />
               <Route path="/experience" element={<ExperiencePage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="*" element={<NotFoundPage />} />

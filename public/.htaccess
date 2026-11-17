@@ -29,8 +29,8 @@ ErrorDocument 404 /404.html
 
   # 5. Clean URLs → prerendered HTML. Unknown project ids find no file and get the 404 page.
   #    Adding a new top-level page? Add it to this list and to STATIC_PATHS in src/seo/meta.js.
-  RewriteRule ^(about|projects|experience|contact)$ _pages/$1.html [L]
-  RewriteRule ^projects/([a-z0-9-]+)$ _pages/projects/$1.html [L]
+  RewriteRule ^(about|services|projects|experience|contact)$ _pages/$1.html [L]
+  RewriteRule ^(projects|services)/([a-z0-9-]+)$ _pages/$1/$2.html [L]
 </IfModule>
 
 # Correct types for files Apache doesn't always know

@@ -34,6 +34,7 @@ export const socials = [
 export const navLinks = [
   { label: "Home", path: "/" },
   { label: "Work", path: "/projects" },
+  { label: "Services", path: "/services" },
   { label: "About", path: "/about" },
   { label: "Experience", path: "/experience" },
   { label: "Contact", path: "/contact" },
@@ -50,12 +51,14 @@ export const heroStats = [
 
 export const services = [
   {
-    title: "Mobile apps",
+    title: "React Native apps",
+    page: "/services/react-native-app-development",
     desc: "Cross-platform iOS & Android apps with React Native and Expo — smooth animations, native feel and store-ready builds.",
     tags: ["React Native", "Expo", "Redux", "Firebase"],
   },
   {
     title: "Full-stack web apps",
+    page: "/services/mern-stack-development",
     desc: "End-to-end MERN products: React and Next.js frontends, Node.js APIs and MongoDB or MySQL databases.",
     tags: ["React", "Next.js", "Node.js", "MongoDB"],
   },

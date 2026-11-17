@@ -22,6 +22,9 @@ Portfolio of Mohammad Shoaib Khan — React 18 + Vite + Tailwind + Framer Motion
   `npm run og`). Each project page gets its own card in `public/og/projects/`.
 - **Adding a project:** add it to `src/data/projects.js`, run `npm run og`, then `npm run build`. Sitemap,
   prerendered page and llms.txt update automatically.
+- **Service pages** (`/services/...`) target search phrases like "React Native developer" and "MERN stack
+  developer". Their content, search title and description live in `src/data/services.js` — add an entry there to
+  create a new one (no other changes needed).
 - **Adding a top-level page:** also add it to `STATIC_PATHS` in `src/seo/meta.js` and to the rewrite rule in
   `public/.htaccess`.
 

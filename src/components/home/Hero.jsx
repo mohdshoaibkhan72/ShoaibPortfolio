@@ -48,10 +48,9 @@ function useFitText(text, fill = 1) {
 
   const measure = (
     <span ref={measureRef} aria-hidden="true" className="invisible absolute left-0 top-0 whitespace-nowrap text-[100px]">
+      {/* Letters drawn via CSS content, so this measuring copy adds no duplicate text to the page */}
       {letters(text).map((ch, i) => (
-        <span key={i} className="inline-block">
-          {ch}
-        </span>
+        <span key={i} data-ch={ch} className="inline-block before:content-[attr(data-ch)]" />
       ))}
     </span>
   );
@@ -88,6 +87,8 @@ function Name({ play }) {
   return (
     <span ref={wrapRef} className="relative block font-condensed uppercase">
       {measure}
+      {/* The full name ("Mohammad" + the big letters) for screen readers and search engines */}
+      <span className="sr-only">Mohammad </span>
       <span
         className="block overflow-hidden whitespace-nowrap pb-[0.04em] leading-[0.9] text-fg"
         style={{ fontSize: size ? `${size}px` : "15vw" }}
@@ -193,7 +194,7 @@ export default function Hero() {
               Hello, I&apos;m
             </motion.span>
             <Name play={play} />
-            <span className="sr-only"> — {profile.role}</span>
+            <span className="sr-only"> — full stack &amp; mobile app developer in India</span>
           </h1>
 
           <motion.p
@@ -204,8 +205,8 @@ export default function Hero() {
           </motion.p>
 
           <motion.p {...fadeUp(0.85, play)} className="mt-6 max-w-md text-[15px] leading-relaxed text-muted text-pretty md:text-base">
-            I build React Native apps, MERN platforms and SaaS products — from first pixel to production — for founders and
-            businesses ready to grow.
+            I build React Native apps, MERN stack platforms and websites — from first pixel to production — for founders
+            and businesses ready to grow.
           </motion.p>
 
           {/* On phones the two buttons share the row; below ~340px they stack */}

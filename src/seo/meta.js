@@ -5,8 +5,9 @@
  *   - in the browser, by <SEOHead />, to keep the head in sync during client-side navigation
  * Keep this file free of React and browser APIs.
  */
-import { education, experience, faqs, profile, socials, toolbox } from "../data/site";
+import { education, experience, faqs, profile, services, socials, toolbox } from "../data/site";
 import { CATEGORIES, getProject, projectChips, projectsData } from "../data/projects";
+import { getServicePage, servicePages } from "../data/services";
 
 export const SITE_URL = "https://mohammadshoaibkhan.com";
 export const SITE_NAME = profile.name;
@@ -17,10 +18,14 @@ const WEBSITE_ID = `${SITE_URL}/#website`;
 const loanyfy = experience.find((e) => e.id === "loanyfy");
 
 /** Top-level pages. When adding one, also add it to the rewrite rule in public/.htaccess. */
-export const STATIC_PATHS = ["/", "/about", "/projects", "/experience", "/contact"];
+export const STATIC_PATHS = ["/", "/about", "/services", "/projects", "/experience", "/contact"];
 
 /** Every URL that is prerendered and listed in the sitemap. */
-export const ROUTES = [...STATIC_PATHS, ...projectsData.map((p) => `/projects/${p.id}`)];
+export const ROUTES = [
+  ...STATIC_PATHS,
+  ...servicePages.map((s) => `/services/${s.slug}`),
+  ...projectsData.map((p) => `/projects/${p.id}`),
+];
 
 export const absoluteUrl = (path) => (/^https?:\/\//.test(path) ? path : `${SITE_URL}${path}`);
 const canonicalFor = (path) => (path === "/" ? `${SITE_URL}/` : `${SITE_URL}${path}`);
@@ -77,6 +82,19 @@ const person = {
     ...new Set(toolbox.flatMap((g) => g.items)),
   ],
   sameAs: socials.map((s) => s.href),
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Website & mobile app development services",
+    itemListElement: services.map((s) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: s.title,
+        description: s.desc,
+        ...(s.page ? { url: `${SITE_URL}${s.page}` } : {}),
+      },
+    })),
+  },
 };
 
 const website = {
@@ -118,26 +136,60 @@ function webPage(type, url, meta, extra = {}) {
   };
 }
 
+function faqNode(url, items) {
+  return {
+    "@type": "FAQPage",
+    "@id": `${url}#faq`,
+    isPartOf: { "@id": `${url}#webpage` },
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+}
+
 /* ---------------------------------------------------------------- per-route meta */
 
 const PAGES = {
   "/": {
-    title: `${profile.name} | Full-Stack & Mobile App Developer`,
-    description: `Senior full-stack & React Native developer in India — ${profile.careerYears}+ years building mobile apps, MERN platforms and SaaS. 16+ apps shipped. Open to freelance.`,
+    title: `${profile.name} | Full Stack & Mobile App Developer India`,
+    description: `${profile.name} — full stack developer in India and freelance React Native & MERN stack developer. ${profile.careerYears}+ years, 16+ websites & mobile apps shipped.`,
     schema: (url, meta) => [
       webPage("ProfilePage", url, meta, { mainEntity: { "@id": PERSON_ID }, about: { "@id": PERSON_ID } }),
     ],
   },
   "/about": {
-    title: `About ${profile.name} | React Native & MERN Developer`,
-    description: `${profile.name} — senior developer at Loanyfy and freelancer building React Native apps, MERN platforms and SaaS for clients in India and the Middle East.`,
+    title: `About ${profile.name} | Full Stack Developer in India`,
+    description: `${profile.name} is a full stack developer in India: senior developer at Loanyfy and a freelance React Native & MERN stack developer for clients worldwide.`,
     type: "profile",
     crumbs: [{ name: "About", path: "/about" }],
     schema: (url, meta) => [webPage("AboutPage", url, meta, { mainEntity: { "@id": PERSON_ID }, about: { "@id": PERSON_ID } })],
   },
+  "/services": {
+    title: `Website & Mobile App Developer — Services | ${profile.name}`,
+    description: `Freelance website and mobile app developer in India — React Native apps, MERN stack web apps, e-commerce and SaaS, built end to end by ${profile.name}.`,
+    crumbs: [{ name: "Services", path: "/services" }],
+    schema: (url, meta) => [
+      webPage("CollectionPage", url, meta, {
+        about: { "@id": PERSON_ID },
+        mainEntity: {
+          "@type": "ItemList",
+          "@id": `${url}#list`,
+          itemListElement: servicePages.map((s, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: s.label,
+            url: `${SITE_URL}/services/${s.slug}`,
+          })),
+        },
+      }),
+      faqNode(url, faqs),
+    ],
+  },
   "/projects": {
-    title: `Projects — Mobile Apps, SaaS & Web | ${profile.name}`,
-    description: `${projectsData.length} projects shipped to production: React Native apps, SaaS, e-commerce and websites — PLP Bazar, KLIMB School ERP, Alras Cars, Fugen Health Care and more.`,
+    title: `Projects — React Native & MERN Portfolio | ${profile.name}`,
+    description: `${projectsData.length} projects shipped to production: React Native apps, MERN stack web platforms, SaaS and websites — PLP Bazar, KLIMB School ERP, Alras Cars and more.`,
     crumbs: [{ name: "Projects", path: "/projects" }],
     schema: (url, meta) => [
       webPage("CollectionPage", url, meta, {
@@ -158,7 +210,7 @@ const PAGES = {
   },
   "/experience": {
     title: `Experience — Senior Developer at Loanyfy | ${profile.name}`,
-    description: `Senior App & Full-Stack Developer at Loanyfy (fintech) since Jan 2024, freelancing since 2023 — React Native, MERN, AWS, KYC and payment integrations.`,
+    description: `Senior App & Full Stack Developer at Loanyfy (fintech) since Jan 2024, freelancing since 2023 — React Native, MERN stack, AWS, KYC and payment integrations.`,
     crumbs: [{ name: "Experience", path: "/experience" }],
     schema: (url, meta) => [
       webPage("WebPage", url, meta, {
@@ -182,21 +234,12 @@ const PAGES = {
     ],
   },
   "/contact": {
-    title: `Hire a React Native & MERN Developer | ${profile.name}`,
-    description: `Hire ${profile.name} for a React Native app, MERN web platform, SaaS or e-commerce build. Replies within 24 hours by email, WhatsApp or the contact form.`,
+    title: `Hire a Freelance App Developer | ${profile.name}`,
+    description: `Hire ${profile.name}, a freelance app developer in India, for React Native apps, MERN stack websites, SaaS or e-commerce. Replies within 24 hours.`,
     crumbs: [{ name: "Contact", path: "/contact" }],
     schema: (url, meta) => [
       webPage("ContactPage", url, meta, { mainEntity: { "@id": PERSON_ID }, about: { "@id": PERSON_ID } }),
-      {
-        "@type": "FAQPage",
-        "@id": `${url}#faq`,
-        isPartOf: { "@id": `${url}#webpage` },
-        mainEntity: faqs.map((f) => ({
-          "@type": "Question",
-          name: f.q,
-          acceptedAnswer: { "@type": "Answer", text: f.a },
-        })),
-      },
+      faqNode(url, faqs),
     ],
   },
 };
@@ -244,6 +287,41 @@ function projectMeta(project) {
   };
 }
 
+function serviceMeta(service) {
+  const path = `/services/${service.slug}`;
+  return {
+    path,
+    title: service.metaTitle,
+    description: service.metaDescription,
+    crumbs: [
+      { name: "Services", path: "/services" },
+      { name: service.label, path },
+    ],
+    schema: (url, meta) => [
+      webPage("WebPage", url, meta, { about: { "@id": `${url}#service` }, mainEntity: { "@id": `${url}#service` } }),
+      {
+        "@type": "Service",
+        "@id": `${url}#service`,
+        name: service.label,
+        serviceType: service.serviceType,
+        description: service.lead,
+        url,
+        provider: { "@id": PERSON_ID },
+        areaServed: [{ "@type": "Country", name: "India" }, { "@type": "Place", name: "Worldwide" }],
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: service.label,
+          itemListElement: service.offers.map((o) => ({
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: o.title, description: o.desc },
+          })),
+        },
+      },
+      faqNode(url, service.faqs),
+    ],
+  };
+}
+
 const NOT_FOUND = {
   title: `Page not found | ${profile.name}`,
   description: "The page you were looking for doesn't exist or has moved.",
@@ -264,8 +342,16 @@ export function getRouteMeta(pathname) {
   const path = normalizePath(pathname);
   const projectMatch = /^\/projects\/([^/]+)$/.exec(path);
   const project = projectMatch && getProject(projectMatch[1]);
+  const serviceMatch = /^\/services\/([^/]+)$/.exec(path);
+  const service = serviceMatch && getServicePage(serviceMatch[1]);
 
-  const page = project ? projectMeta(project) : PAGES[path] ? { path, ...PAGES[path] } : null;
+  const page = project
+    ? projectMeta(project)
+    : service
+      ? serviceMeta(service)
+      : PAGES[path]
+        ? { path, ...PAGES[path] }
+        : null;
 
   if (!page) {
     return { path, url: null, ...NOT_FOUND, image: DEFAULT_IMAGE, type: "website", jsonLd: null };

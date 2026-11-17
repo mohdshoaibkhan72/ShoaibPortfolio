@@ -26,17 +26,15 @@ const dist = join(root, "dist");
 const ssrDir = join(root, "dist-ssr");
 
 const ssr = await import(pathToFileURL(join(ssrDir, "entry-server.js")).href);
-const { render, ROUTES, getRouteMeta, renderHeadTags, SITE_URL, projectsData, CATEGORIES, profile, experience, services, socials, faqs, whatsapp } = ssr;
+const { render, ROUTES, getRouteMeta, renderHeadTags, SITE_URL, projectsData, CATEGORIES, profile, experience, services, servicePages, socials, faqs, whatsapp } = ssr;
 
 const template = await readFile(join(dist, "index.html"), "utf8");
-if (!template.includes("<!--seo-->") || !template.includes("<!--app-html-->")) {
-  throw new Error("dist/index.html is missing the <!--seo--> / <!--app-html--> markers (see index.html).");
+if (!template.includes("<!--seo-head-->") || !template.includes("<!--app-html-->")) {
+  throw new Error("dist/index.html is missing the <!--seo-head--> / <!--app-html--> markers (see index.html).");
 }
 
 function buildPage(meta, appHtml) {
-  return template
-    .replace(/<!--seo-->[\s\S]*?<!--\/seo-->/, renderHeadTags(meta))
-    .replace("<!--app-html-->", appHtml);
+  return template.replace("<!--seo-head-->", renderHeadTags(meta)).replace("<!--app-html-->", appHtml);
 }
 
 const outFile = (path) => (path === "/" ? join(dist, "index.html") : join(dist, "_pages", `${path.slice(1)}.html`));
@@ -86,8 +84,12 @@ const routeSources = (path) => {
     const images = [...new Set(project.gallery.map((g) => `public${dirname(g.src)}`))];
     return [...SHARED, "src/pages/ProjectDetailPage.jsx", "src/components/project", "src/data/projects.js", ...images];
   }
-  const page = { "/about": "AboutPage", "/projects": "ProjectsPage", "/experience": "ExperiencePage", "/contact": "ContactPage" }[path];
-  return [...SHARED, `src/pages/${page}.jsx`, ...(path === "/projects" ? ["src/data/projects.js", "src/components/project"] : [])];
+  if (path.startsWith("/services/")) {
+    return [...SHARED, "src/pages/ServicePage.jsx", "src/data/services.js", "src/data/projects.js", "src/components/home/Process.jsx"];
+  }
+  const page = { "/about": "AboutPage", "/services": "ServicesPage", "/projects": "ProjectsPage", "/experience": "ExperiencePage", "/contact": "ContactPage" }[path];
+  const extra = { "/projects": ["src/data/projects.js", "src/components/project"], "/services": ["src/data/services.js", "src/components/home"] }[path] || [];
+  return [...SHARED, `src/pages/${page}.jsx`, ...extra];
 };
 
 const routeImages = (path) => {
@@ -150,12 +152,14 @@ const llms = `# ${profile.name}
 
 ## Services
 
-${services.map((s) => `- ${s.title}: ${s.desc}`).join("\n")}
+${services.map((s) => `- ${s.page ? `[${s.title}](${SITE_URL}${s.page})` : s.title}: ${s.desc}`).join("\n")}
 
 ## Pages
 
 - [Home](${SITE_URL}/): overview, selected work, services and testimonials
 - [About](${SITE_URL}/about): background, toolbox, process and quick facts
+- [Services](${SITE_URL}/services): website & mobile app development — what I offer and how I work
+${servicePages.map((sp) => `- [${sp.metaTitle.split(" | ")[0]}](${SITE_URL}/services/${sp.slug}): ${sp.intro}`).join("\n")}
 - [Projects](${SITE_URL}/projects): all ${projectsData.length} projects with case studies
 - [Experience](${SITE_URL}/experience): roles, responsibilities and achievements
 - [Contact](${SITE_URL}/contact): contact form, email, WhatsApp and FAQ

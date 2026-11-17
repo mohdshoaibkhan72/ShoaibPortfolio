@@ -14,14 +14,14 @@ export default function AboutIntro() {
         <div className="lg:col-span-9">
           <ScrollWords
             className="text-[clamp(1.85rem,3.7vw,3.6rem)] font-medium leading-[1.1] tracking-[-0.035em]"
-            text={`I'm Shoaib — a developer who turns ideas into *production-ready* apps. For ${profile.careerYears}+ years I've shipped React Native apps and MERN platforms: leading mobile-first fintech at Loanyfy by day, and building marketplaces, SaaS products and stores for clients across India and the Middle East.`}
+            text={`I'm Mohammad Shoaib Khan — a full stack developer in India who turns ideas into *production-ready* apps. For ${profile.careerYears}+ years I've shipped React Native apps and MERN platforms: leading mobile-first fintech at Loanyfy by day, and building marketplaces, SaaS products and stores for clients across India and the Middle East.`}
           />
 
           <Reveal className="mt-14 flex flex-col gap-8 sm:flex-row sm:items-end md:mt-20">
             <div className="relative w-44 shrink-0 overflow-hidden rounded-2xl sm:w-52">
               <img
                 src={profile.portrait}
-                alt="Shoaib Khan at his desk, coding across two monitors"
+                alt="Mohammad Shoaib Khan, full stack developer, coding at his desk across two monitors"
                 width={864}
                 height={741}
                 loading="lazy"

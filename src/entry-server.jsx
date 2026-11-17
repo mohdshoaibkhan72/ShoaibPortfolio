@@ -8,6 +8,7 @@ import { StaticRouter } from "react-router-dom";
 import App from "./App.jsx";
 
 export { ROUTES, getRouteMeta, renderHeadTags, SITE_URL } from "./seo/meta";
+export { servicePages } from "./data/services";
 export { projectsData, CATEGORIES } from "./data/projects";
 export { profile, experience, services, socials, education, faqs, whatsapp } from "./data/site";
 
