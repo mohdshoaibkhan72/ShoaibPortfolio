@@ -157,7 +157,7 @@ export default function Hero() {
               src={heroPortrait.src}
               width={heroPortrait.width}
               height={heroPortrait.height}
-              alt="Shoaib Khan in a maroon shirt and sunglasses"
+              alt="Mohammad Shoaib Khan, full stack and mobile app developer, in a maroon shirt and sunglasses"
               fetchpriority="high"
               decoding="async"
               draggable="false"

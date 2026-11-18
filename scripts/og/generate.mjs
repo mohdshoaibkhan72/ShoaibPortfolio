@@ -165,6 +165,7 @@ try {
   }
 
   const icon = (size, scale, bg) => shoot({ kind: "icon", size, scale, bg }, { width: size, height: size, format: "png", transparent: !bg });
+  await save("favicon-96x96.png", await icon(96, 1)); // Google Search favicon (multiple of 48px)
   await save("icon-192.png", await icon(192, 1));
   await save("icon-512.png", await icon(512, 1));
   await save("icon-maskable-512.png", await icon(512, 0.8, "#0b0b0c")); // content inside the 80% safe zone

@@ -11,7 +11,7 @@ export const profile = {
   phone: "+91 73102 49234",
   phoneHref: "tel:+917310249234",
   cv: "/Mohd%20Shoaib%20Khan.pdf",
-  portrait: "/img/shoaib-portrait.webp",
+  portrait: "/img/mohammad-shoaib-khan-developer.webp",
   careerYears,
   loanyfyYears,
 };
@@ -41,7 +41,7 @@ export const navLinks = [
 ];
 
 /** Cut-out portrait used in the hero (the loading screen preloads it). */
-export const heroPortrait = { src: "/img/shoaib-hero.webp", width: 822, height: 1217 };
+export const heroPortrait = { src: "/img/mohammad-shoaib-khan.webp", width: 822, height: 1217 };
 
 export const heroStats = [
   { value: careerYears, suffix: "+", label: "Years building\nproduction software" },

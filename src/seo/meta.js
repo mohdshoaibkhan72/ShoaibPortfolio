@@ -5,7 +5,7 @@
  *   - in the browser, by <SEOHead />, to keep the head in sync during client-side navigation
  * Keep this file free of React and browser APIs.
  */
-import { education, experience, faqs, profile, services, socials, toolbox } from "../data/site";
+import { education, experience, faqs, heroPortrait, profile, services, socials, toolbox } from "../data/site";
 import { CATEGORIES, getProject, projectChips, projectsData } from "../data/projects";
 import { getServicePage, servicePages } from "../data/services";
 
@@ -42,20 +42,35 @@ const listJoin = (items) =>
 
 /* ---------------------------------------------------------------- JSON-LD nodes */
 
+/** A photo of Shoaib, with the creator/credit metadata Google Images shows. */
+function photo(id, src, width, height, caption) {
+  const url = `${SITE_URL}${src}`;
+  return {
+    "@type": "ImageObject",
+    "@id": `${SITE_URL}/${id}`,
+    url,
+    contentUrl: url,
+    width,
+    height,
+    caption,
+    name: caption,
+    creator: { "@type": "Person", name: profile.name, url: `${SITE_URL}/` },
+    creditText: profile.name,
+    copyrightNotice: `© ${profile.name}`,
+    copyrightHolder: { "@type": "Person", name: profile.name },
+  };
+}
+
 const person = {
   "@type": "Person",
   "@id": PERSON_ID,
   name: profile.name,
   alternateName: [profile.shortName, "Mohd Shoaib Khan", "Mohd. Shoaib Khan"],
   url: `${SITE_URL}/`,
-  image: {
-    "@type": "ImageObject",
-    "@id": `${SITE_URL}/#portrait`,
-    url: `${SITE_URL}${profile.portrait}`,
-    width: 864,
-    height: 741,
-    caption: profile.name,
-  },
+  image: [
+    photo("#photo", heroPortrait.src, heroPortrait.width, heroPortrait.height, `${profile.name}, full stack and mobile app developer`),
+    photo("#portrait", profile.portrait, 864, 741, `${profile.name} coding at his desk`),
+  ],
   jobTitle: profile.role,
   description: `${profile.role} with ${profile.careerYears}+ years of experience building React Native mobile apps, MERN web platforms and SaaS products. Senior developer at Loanyfy (fintech) and freelance developer for clients in India and the Middle East.`,
   email: `mailto:${profile.email}`,
@@ -367,7 +382,7 @@ export function getRouteMeta(pathname) {
     type: page.type || "website",
     noindex: false,
     // The hero portrait is the largest image on the home page — fetch it early there only.
-    preload: page.path === "/" ? "/img/shoaib-hero.webp" : null,
+    preload: page.path === "/" ? heroPortrait.src : null,
   };
 
   meta.jsonLd = {

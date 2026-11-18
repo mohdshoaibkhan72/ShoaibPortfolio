@@ -10,7 +10,7 @@ import App from "./App.jsx";
 export { ROUTES, getRouteMeta, renderHeadTags, SITE_URL } from "./seo/meta";
 export { servicePages } from "./data/services";
 export { projectsData, CATEGORIES } from "./data/projects";
-export { profile, experience, services, socials, education, faqs, whatsapp } from "./data/site";
+export { profile, heroPortrait, experience, services, socials, education, faqs, whatsapp } from "./data/site";
 
 /** Render the app at `url` to an HTML string, waiting for lazy-loaded pages to resolve. */
 export function render(url) {

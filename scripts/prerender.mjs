@@ -26,7 +26,7 @@ const dist = join(root, "dist");
 const ssrDir = join(root, "dist-ssr");
 
 const ssr = await import(pathToFileURL(join(ssrDir, "entry-server.js")).href);
-const { render, ROUTES, getRouteMeta, renderHeadTags, SITE_URL, projectsData, CATEGORIES, profile, experience, services, servicePages, socials, faqs, whatsapp } = ssr;
+const { render, ROUTES, getRouteMeta, renderHeadTags, SITE_URL, projectsData, CATEGORIES, profile, heroPortrait, experience, services, servicePages, socials, faqs, whatsapp } = ssr;
 
 const template = await readFile(join(dist, "index.html"), "utf8");
 if (!template.includes("<!--seo-head-->") || !template.includes("<!--app-html-->")) {
@@ -93,7 +93,7 @@ const routeSources = (path) => {
 };
 
 const routeImages = (path) => {
-  if (path === "/") return ["/img/shoaib-hero.webp", profile.portrait];
+  if (path === "/") return [heroPortrait.src, profile.portrait];
   if (path === "/about") return [profile.portrait];
   const project = projectsData.find((p) => `/projects/${p.id}` === path);
   if (!project) return [];
